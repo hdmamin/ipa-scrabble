@@ -109,10 +109,11 @@ const LobbyScreen: React.FC<LobbyScreenProps> = ({
   };
 
   const copyInviteLink = () => {
-    const shareLink = myInviteLink 
-      ? `${myInviteLink}/?invite=${myInviteCode}`
+    // Generate link for player 2 to open on their local frontend
+    const shareLink = myInviteLink
+      ? `http://localhost:3000/?invite=${myInviteCode}&server=${encodeURIComponent(myInviteLink)}`
       : myInviteCode;
-      
+
     navigator.clipboard.writeText(shareLink);
     setCopied(true);
     toast.success('Invite link copied!');
@@ -125,8 +126,8 @@ const LobbyScreen: React.FC<LobbyScreenProps> = ({
   };
 
   const shareInviteLink = async () => {
-    const shareLink = myInviteLink 
-      ? `${myInviteLink}/?invite=${myInviteCode}`
+    const shareLink = myInviteLink
+      ? `http://localhost:3000/?invite=${myInviteCode}&server=${encodeURIComponent(myInviteLink)}`
       : myInviteCode;
       
     if (navigator.share) {
@@ -351,9 +352,21 @@ export default function IPA_ScrabbleGame() {
   }, []);
 
   useEffect(() => {
-    const isLocal = typeof window !== 'undefined' &&
-      (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
-    const socketUrl = isLocal ? 'http://localhost:3004' : '/?XTransformPort=3004';
+    // Check for server URL param (for joining remote games)
+    const urlParams = new URLSearchParams(window.location.search);
+    const serverParam = urlParams.get('server');
+
+    let socketUrl: string;
+    if (serverParam) {
+      // Use provided server URL (remote game)
+      socketUrl = serverParam;
+      console.log('Connecting to remote server:', socketUrl);
+    } else {
+      // Default: local server
+      const isLocal = typeof window !== 'undefined' &&
+        (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+      socketUrl = isLocal ? 'http://localhost:3004' : '/?XTransformPort=3004';
+    }
     const socketInstance = io(socketUrl, {
       transports: ['websocket', 'polling'],
       reconnection: true,
