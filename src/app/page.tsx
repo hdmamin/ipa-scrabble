@@ -351,7 +351,10 @@ export default function IPA_ScrabbleGame() {
   }, []);
 
   useEffect(() => {
-    const socketInstance = io('/?XTransformPort=3004', {
+    const isLocal = typeof window !== 'undefined' &&
+      (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+    const socketUrl = isLocal ? 'http://localhost:3004' : '/?XTransformPort=3004';
+    const socketInstance = io(socketUrl, {
       transports: ['websocket', 'polling'],
       reconnection: true,
       reconnectionAttempts: 5,
