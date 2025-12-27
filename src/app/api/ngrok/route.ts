@@ -31,8 +31,10 @@ export async function GET() {
     });
   } catch (error: any) {
     console.error('Error starting ngrok:', error);
+    console.error('Error body:', error.body);
+    console.error('Error response:', error.response?.statusCode, error.response?.statusMessage);
     return NextResponse.json(
-      { error: 'Failed to start ngrok tunnel', details: error.message },
+      { error: 'Failed to start ngrok tunnel', details: error.message, body: error.body },
       { status: 500 }
     );
   }
