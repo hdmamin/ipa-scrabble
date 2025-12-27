@@ -15,6 +15,14 @@ export async function GET() {
       });
     }
 
+    // Kill any existing tunnels first
+    try {
+      await ngrok.disconnect();
+      await ngrok.kill();
+    } catch (e) {
+      // Ignore errors if no tunnel exists
+    }
+
     // Start ngrok tunnel for port 3004 (game service)
     console.log('Starting ngrok tunnel for port 3004...');
     const url = await ngrok.connect({
