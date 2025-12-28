@@ -27,6 +27,7 @@ export async function GET() {
     console.log('Starting ngrok tunnel for port 3004...');
     const url = await ngrok.connect({
       addr: 3004,
+      name: `ipa-scrabble-${Date.now()}`,
       binPath: () => join(process.cwd(), 'node_modules', 'ngrok', 'bin')
     });
     console.log('Ngrok tunnel URL:', url);
