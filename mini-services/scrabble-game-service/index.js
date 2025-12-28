@@ -1,29 +1,7 @@
-"use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
-    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
-        if (ar || !(i in from)) {
-            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
-            ar[i] = from[i];
-        }
-    }
-    return to.concat(ar || Array.prototype.slice.call(from));
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var http_1 = require("http");
-var socket_io_1 = require("socket.io");
-var httpServer = (0, http_1.createServer)();
-var io = new socket_io_1.Server(httpServer, {
+import { createServer } from 'http';
+import { Server } from 'socket.io';
+const httpServer = createServer();
+const io = new Server(httpServer, {
     // DO NOT change the path, it is used by Caddy to forward the request to the correct port
     path: '/',
     cors: {
@@ -33,9 +11,9 @@ var io = new socket_io_1.Server(httpServer, {
     pingTimeout: 60000,
     pingInterval: 25000,
 });
-var gameRooms = new Map();
+const gameRooms = new Map();
 // IPA Tiles definition (same as client)
-var IPA_TILES = [
+const IPA_TILES = [
     // Very common consonants (1 point)
     { char: 'n', type: 'consonant', description: 'alveolar nasal', points: 1 },
     { char: 't', type: 'consonant', description: 'voiceless alveolar plosive', points: 1 },
@@ -91,9 +69,8 @@ var IPA_TILES = [
     { char: '̃', type: 'modifier', description: 'nasalization', points: 0 },
 ];
 function createTileBag() {
-    var _a;
-    var bag = [];
-    var tileCounts = {
+    const bag = [];
+    const tileCounts = {
         'n': 6, 't': 6, 's': 4, 'm': 4, 'l': 4, 'k': 3, 'r': 3,
         'p': 2, 'b': 2, 'd': 2, 'g': 2, 'f': 2, 'h': 2, 'v': 2, 'z': 2, 'j': 2, 'ʃ': 2,
         'θ': 1, 'ð': 1, 'ʒ': 1, 'ŋ': 1, 'ʔ': 1, 'ɾ': 1,
@@ -101,22 +78,24 @@ function createTileBag() {
         'ə': 5, 'i': 4, 'ɪ': 4, 'a': 4, 'e': 3, 'ɛ': 3, 'æ': 2, 'u': 3, 'o': 3, 'ɑ': 2, 'ɔ': 2, 'ɜ': 1,
         'ˈ': 2, 'ˌ': 2, 'ː': 2, '̃': 2,
     };
-    for (var _i = 0, IPA_TILES_1 = IPA_TILES; _i < IPA_TILES_1.length; _i++) {
-        var tile = IPA_TILES_1[_i];
-        var count = tileCounts[tile.char] || 1;
-        for (var i = 0; i < count; i++) {
-            bag.push(__assign(__assign({}, tile), { id: Math.random().toString(36).substr(2, 9) }));
+    for (const tile of IPA_TILES) {
+        const count = tileCounts[tile.char] || 1;
+        for (let i = 0; i < count; i++) {
+            bag.push({
+                ...tile,
+                id: Math.random().toString(36).substr(2, 9)
+            });
         }
     }
     // Fisher-Yates shuffle
-    for (var i = bag.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        _a = [bag[j], bag[i]], bag[i] = _a[0], bag[j] = _a[1];
+    for (let i = bag.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [bag[i], bag[j]] = [bag[j], bag[i]];
     }
     return bag;
 }
 // Bonus squares layout
-var BONUS_SQUARES = {
+const BONUS_SQUARES = {
     '0,0': 'TW', '0,7': 'TW', '0,14': 'TW',
     '7,0': 'TW', '7,14': 'TW',
     '14,0': 'TW', '14,7': 'TW', '14,14': 'TW',
@@ -140,15 +119,15 @@ var BONUS_SQUARES = {
     '7,7': 'center',
 };
 function createEmptyBoard() {
-    var board = [];
-    for (var row = 0; row < 15; row++) {
+    const board = [];
+    for (let row = 0; row < 15; row++) {
         board[row] = [];
-        for (var col = 0; col < 15; col++) {
-            var key = "".concat(row, ",").concat(col);
-            var bonusType = BONUS_SQUARES[key] || 'normal';
+        for (let col = 0; col < 15; col++) {
+            const key = `${row},${col}`;
+            const bonusType = BONUS_SQUARES[key] || 'normal';
             board[row][col] = {
-                row: row,
-                col: col,
+                row,
+                col,
                 tile: null,
                 type: bonusType
             };
@@ -157,10 +136,13 @@ function createEmptyBoard() {
     return board;
 }
 function getGameState(room) {
-    var players = Array.from(room.players.values());
+    const players = Array.from(room.players.values());
     return {
         board: room.board,
-        players: players.map(function (p) { return (__assign(__assign({}, p), { tiles: p.tiles.map(function (t) { return (__assign({}, t)); }) })); }),
+        players: players.map(p => ({
+            ...p,
+            tiles: p.tiles.map(t => ({ ...t }))
+        })),
         currentPlayerIndex: room.currentPlayerIndex,
         tileBag: room.tileBag,
         gameStarted: room.gameStarted,
@@ -171,20 +153,20 @@ function getGameState(room) {
     };
 }
 function drawTiles(tileBag, count) {
-    var drawn = tileBag.splice(0, count);
+    const drawn = tileBag.splice(0, count);
     return { tiles: drawn, remaining: tileBag };
 }
-io.on('connection', function (socket) {
-    console.log("User connected: ".concat(socket.id));
-    socket.on('create-room', function (data) {
-        var inviteCode = data.inviteCode, playerName = data.playerName;
+io.on('connection', (socket) => {
+    console.log(`User connected: ${socket.id}`);
+    socket.on('create-room', (data) => {
+        const { inviteCode, playerName } = data;
         if (gameRooms.has(inviteCode)) {
             socket.emit('error', { message: 'Room with this invite code already exists' });
             return;
         }
-        var room = {
+        const room = {
             id: Math.random().toString(36).substr(2, 9),
-            inviteCode: inviteCode,
+            inviteCode,
             players: new Map(),
             board: createEmptyBoard(),
             tileBag: createTileBag(),
@@ -192,7 +174,7 @@ io.on('connection', function (socket) {
             gameStarted: false,
             moveHistory: []
         };
-        var player = {
+        const player = {
             id: socket.id,
             name: playerName,
             score: 0,
@@ -203,15 +185,15 @@ io.on('connection', function (socket) {
         socket.join(inviteCode);
         gameRooms.set(inviteCode, room);
         socket.emit('room-created', {
-            inviteCode: inviteCode,
+            inviteCode,
             playerId: socket.id,
             gameState: getGameState(room)
         });
-        console.log("Room created: ".concat(inviteCode, " by ").concat(playerName));
+        console.log(`Room created: ${inviteCode} by ${playerName}`);
     });
-    socket.on('join-room', function (data) {
-        var inviteCode = data.inviteCode, playerName = data.playerName;
-        var room = gameRooms.get(inviteCode);
+    socket.on('join-room', (data) => {
+        const { inviteCode, playerName } = data;
+        const room = gameRooms.get(inviteCode);
         if (!room) {
             socket.emit('error', { message: 'Room not found' });
             return;
@@ -220,7 +202,7 @@ io.on('connection', function (socket) {
             socket.emit('error', { message: 'Room is full' });
             return;
         }
-        var player = {
+        const player = {
             id: socket.id,
             name: playerName,
             score: 0,
@@ -232,9 +214,8 @@ io.on('connection', function (socket) {
         // Start game when second player joins
         if (room.players.size === 2) {
             // Deal tiles to each player
-            for (var _i = 0, _a = room.players; _i < _a.length; _i++) {
-                var _b = _a[_i], playerId = _b[0], p = _b[1];
-                var _c = drawTiles(room.tileBag, 7), tiles = _c.tiles, remaining = _c.remaining;
+            for (const [playerId, p] of room.players) {
+                const { tiles, remaining } = drawTiles(room.tileBag, 7);
                 p.tiles = tiles;
                 room.tileBag = remaining;
             }
@@ -242,24 +223,24 @@ io.on('connection', function (socket) {
             io.to(inviteCode).emit('game-started', {
                 gameState: getGameState(room)
             });
-            console.log("Game started in room: ".concat(inviteCode));
+            console.log(`Game started in room: ${inviteCode}`);
         }
         else {
             socket.emit('room-joined', {
-                inviteCode: inviteCode,
+                inviteCode,
                 playerId: socket.id,
                 gameState: getGameState(room)
             });
         }
     });
-    socket.on('make-move', function (data) {
-        var inviteCode = data.inviteCode, tiles = data.tiles;
-        var room = gameRooms.get(inviteCode);
+    socket.on('make-move', (data) => {
+        const { inviteCode, tiles } = data;
+        const room = gameRooms.get(inviteCode);
         if (!room) {
             socket.emit('error', { message: 'Room not found' });
             return;
         }
-        var player = room.players.get(socket.id);
+        const player = room.players.get(socket.id);
         if (!player) {
             socket.emit('error', { message: 'Player not found' });
             return;
@@ -268,31 +249,26 @@ io.on('connection', function (socket) {
             socket.emit('error', { message: 'Not your turn' });
             return;
         }
-        var _loop_1 = function (placedTile) {
-            var tileFromRack = player.tiles.find(function (t) { return t.id === placedTile.tileId; });
-            if (!tileFromRack)
-                return "continue";
-            room.board[placedTile.row][placedTile.col].tile = tileFromRack;
-            player.tiles = player.tiles.filter(function (t) { return t.id !== placedTile.tileId; });
-        };
         // Place tiles on board
-        for (var _i = 0, tiles_1 = tiles; _i < tiles_1.length; _i++) {
-            var placedTile = tiles_1[_i];
-            _loop_1(placedTile);
+        for (const placedTile of tiles) {
+            const tileFromRack = player.tiles.find(t => t.id === placedTile.tileId);
+            if (!tileFromRack)
+                continue;
+            room.board[placedTile.row][placedTile.col].tile = tileFromRack;
+            player.tiles = player.tiles.filter(t => t.id !== placedTile.tileId);
         }
         // Draw new tiles
-        var tilesToDraw = Math.min(7 - player.tiles.length, room.tileBag.length);
+        const tilesToDraw = Math.min(7 - player.tiles.length, room.tileBag.length);
         if (tilesToDraw > 0) {
-            var _a = drawTiles(room.tileBag, tilesToDraw), newTiles = _a.tiles, remaining = _a.remaining;
-            player.tiles = __spreadArray(__spreadArray([], player.tiles, true), newTiles, true);
+            const { tiles: newTiles, remaining } = drawTiles(room.tileBag, tilesToDraw);
+            player.tiles = [...player.tiles, ...newTiles];
             room.tileBag = remaining;
         }
         // Calculate score (simplified - just tile points for now)
-        var score = 0;
-        var placedWords = [];
-        for (var _b = 0, tiles_2 = tiles; _b < tiles_2.length; _b++) {
-            var placedTile = tiles_2[_b];
-            var cell = room.board[placedTile.row][placedTile.col];
+        let score = 0;
+        const placedWords = [];
+        for (const placedTile of tiles) {
+            const cell = room.board[placedTile.row][placedTile.col];
             if (cell.tile) {
                 score += cell.tile.points;
                 placedWords.push(cell.tile.char);
@@ -302,8 +278,8 @@ io.on('connection', function (socket) {
         // Record move
         room.moveHistory.push({
             playerIndex: room.currentPlayerIndex,
-            tiles: tiles.map(function (t) { return (__assign({}, t)); }),
-            score: score,
+            tiles: tiles.map(t => ({ ...t })),
+            score,
             words: placedWords
         });
         // Switch to next player
@@ -312,28 +288,27 @@ io.on('connection', function (socket) {
         io.to(inviteCode).emit('game-updated', {
             gameState: getGameState(room)
         });
-        console.log("Move made by ".concat(player.name, " in room ").concat(inviteCode, ", score: ").concat(score));
+        console.log(`Move made by ${player.name} in room ${inviteCode}, score: ${score}`);
     });
-    socket.on('pass-turn', function (data) {
-        var inviteCode = data.inviteCode;
-        var room = gameRooms.get(inviteCode);
+    socket.on('pass-turn', (data) => {
+        const { inviteCode } = data;
+        const room = gameRooms.get(inviteCode);
         if (!room)
             return;
         room.currentPlayerIndex = (room.currentPlayerIndex + 1) % room.players.size;
         io.to(inviteCode).emit('game-updated', {
             gameState: getGameState(room)
         });
-        console.log("".concat(socket.id, " passed turn in room ").concat(inviteCode));
+        console.log(`${socket.id} passed turn in room ${inviteCode}`);
     });
-    socket.on('disconnect', function () {
+    socket.on('disconnect', () => {
         // Find and clean up rooms
-        for (var _i = 0, _a = gameRooms.entries(); _i < _a.length; _i++) {
-            var _b = _a[_i], inviteCode = _b[0], room = _b[1];
+        for (const [inviteCode, room] of gameRooms.entries()) {
             if (room.players.has(socket.id)) {
                 room.players.delete(socket.id);
                 if (room.players.size === 0) {
                     gameRooms.delete(inviteCode);
-                    console.log("Room deleted: ".concat(inviteCode));
+                    console.log(`Room deleted: ${inviteCode}`);
                 }
                 else {
                     // Notify remaining players
@@ -342,24 +317,24 @@ io.on('connection', function (socket) {
                 break;
             }
         }
-        console.log("User disconnected: ".concat(socket.id));
+        console.log(`User disconnected: ${socket.id}`);
     });
 });
-var PORT = 3004;
-httpServer.listen(PORT, function () {
-    console.log("Scrabble game service running on port ".concat(PORT));
+const PORT = 3004;
+httpServer.listen(PORT, () => {
+    console.log(`Scrabble game service running on port ${PORT}`);
 });
 // Graceful shutdown
-process.on('SIGTERM', function () {
+process.on('SIGTERM', () => {
     console.log('Received SIGTERM signal, shutting down server...');
-    httpServer.close(function () {
+    httpServer.close(() => {
         console.log('Scrabble game service closed');
         process.exit(0);
     });
 });
-process.on('SIGINT', function () {
+process.on('SIGINT', () => {
     console.log('Received SIGINT signal, shutting down server...');
-    httpServer.close(function () {
+    httpServer.close(() => {
         console.log('Scrabble game service closed');
         process.exit(0);
     });
