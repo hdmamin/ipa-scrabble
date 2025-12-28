@@ -54,10 +54,19 @@ export async function POST(request: Request) {
 
     // Start ngrok tunnel for port 3004 (game service)
     console.log('Starting ngrok tunnel for port 3004...');
+
+    // In packaged app, use the bundled binary from Resources
+    const isPackaged = process.env.NODE_ENV === 'production';
+    const binPath = isPackaged
+      ? () => join(process.resourcesPath, 'ngrok', 'bin', 'ngrok')
+      : () => join(process.cwd(), 'node_modules', 'ngrok', 'bin', 'ngrok');
+
+    console.log('Ngrok binary path:', binPath());
+
     const url = await ngrok.connect({
       addr: 3004,
-      authtoken
-      // Remove binPath to let ngrok find its own binary
+      authtoken,
+      binPath
     });
     console.log('Ngrok tunnel URL:', url);
 

@@ -1,6 +1,6 @@
 {
   "name": "ipa-scrabble",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "IPA Scrabble - Play Scrabble with the International Phonetic Alphabet",
   "main": "dist/electron/main.js",
   "private": true,
@@ -136,6 +136,11 @@
       {
         "from": "mini-services",
         "to": "mini-services",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "node_modules/ngrok/bin",
+        "to": "ngrok/bin",
         "filter": ["**/*"]
       }
     ],
