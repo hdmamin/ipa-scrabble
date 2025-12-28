@@ -1,7 +1,9 @@
-import { createServer } from 'http';
-import { Server } from 'socket.io';
-const httpServer = createServer();
-const io = new Server(httpServer, {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const http_1 = require("http");
+const socket_io_1 = require("socket.io");
+const httpServer = (0, http_1.createServer)();
+const io = new socket_io_1.Server(httpServer, {
     // DO NOT change the path, it is used by Caddy to forward the request to the correct port
     path: '/',
     cors: {
