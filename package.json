@@ -114,7 +114,8 @@
       "buildResources": "build"
     },
     "files": [
-      "dist/electron/**/*"
+      "dist/electron/**/*",
+      "!node_modules"
     ],
     "extraResources": [
       {

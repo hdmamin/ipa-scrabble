@@ -95,6 +95,13 @@ function createTileBag() {
     return bag;
 }
 // Bonus squares layout
+const BONUS_MAP = {
+    'TW': 'triple-word',
+    'DW': 'double-word',
+    'TL': 'triple-letter',
+    'DL': 'double-letter',
+    'center': 'center',
+};
 const BONUS_SQUARES = {
     '0,0': 'TW', '0,7': 'TW', '0,14': 'TW',
     '7,0': 'TW', '7,14': 'TW',
@@ -124,7 +131,8 @@ function createEmptyBoard() {
         board[row] = [];
         for (let col = 0; col < 15; col++) {
             const key = `${row},${col}`;
-            const bonusType = BONUS_SQUARES[key] || 'normal';
+            const bonusKey = BONUS_SQUARES[key];
+            const bonusType = bonusKey ? BONUS_MAP[bonusKey] : 'normal';
             board[row][col] = {
                 row,
                 col,
@@ -278,7 +286,11 @@ io.on('connection', (socket) => {
         // Record move
         room.moveHistory.push({
             playerIndex: room.currentPlayerIndex,
-            tiles: tiles.map(t => ({ ...t })),
+            tiles: tiles.map(t => ({
+                row: t.row,
+                col: t.col,
+                tile: room.board[t.row][t.col].tile
+            })),
             score,
             words: placedWords
         });
