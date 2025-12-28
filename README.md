@@ -29,3 +29,19 @@ npm run dev
 ```
 
 Then open http://localhost:3000
+
+## Building the Desktop App
+
+```bash
+npm run build:all
+```
+
+This creates distributable files in `dist/electron/`:
+- `IPA Scrabble-x.x.x-mac.zip` - Intel Macs
+- `IPA Scrabble-x.x.x-arm64-mac.zip` - Apple Silicon Macs (M1/M2/M3)
+
+## Publishing a Release
+
+```bash
+gh release create v0.0.1 "dist/electron/IPA Scrabble-1.0.0-mac.zip" "dist/electron/IPA Scrabble-1.0.0-arm64-mac.zip" --title "IPA Scrabble v0.0.1" --notes "Release notes here"
+```

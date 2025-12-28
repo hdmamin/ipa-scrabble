@@ -9,6 +9,7 @@
     "electron:dev": "concurrently \"bun run dev\" \"wait-on http://localhost:3000 && electron .\"",
     "build": "next build && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/",
     "build:electron": "tsc -p electron/tsconfig.json && tsc mini-services/scrabble-game-service/index.ts --outDir mini-services/scrabble-game-service --esModuleInterop --skipLibCheck && electron-builder",
+    "build:all": "npm run build && npm run build:electron",
     "start": "NODE_ENV=production bun .next/standalone/server.js 2>&1 | tee server.log",
     "lint": "next lint",
     "db:push": "prisma db push",
