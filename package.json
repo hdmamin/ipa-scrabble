@@ -143,14 +143,6 @@
     "mac": {
       "target": [
         {
-          "target": "dmg",
-          "arch": "x64"
-        },
-        {
-          "target": "dmg",
-          "arch": "arm64"
-        },
-        {
           "target": "zip",
           "arch": "x64"
         },
@@ -161,13 +153,6 @@
       ],
       "category": "public.app-category.games",
       "hardenedRuntime": true
-    },
-    "dmg": {
-      "title": "IPA Scrabble",
-      "window": {
-        "width": 540,
-        "height": 380
-      }
     }
   }
 }
