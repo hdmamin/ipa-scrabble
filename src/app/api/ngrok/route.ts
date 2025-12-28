@@ -56,8 +56,8 @@ export async function POST(request: Request) {
     console.log('Starting ngrok tunnel for port 3004...');
     const url = await ngrok.connect({
       addr: 3004,
-      authtoken,
-      binPath: () => join(process.cwd(), 'node_modules', 'ngrok', 'bin')
+      authtoken
+      // Remove binPath to let ngrok find its own binary
     });
     console.log('Ngrok tunnel URL:', url);
 

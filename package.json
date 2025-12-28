@@ -1,6 +1,6 @@
 {
   "name": "ipa-scrabble",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "IPA Scrabble - Play Scrabble with the International Phonetic Alphabet",
   "main": "dist/electron/main.js",
   "private": true,
