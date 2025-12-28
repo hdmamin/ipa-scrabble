@@ -160,12 +160,10 @@
         }
       ],
       "category": "public.app-category.games",
-      "icon": "build/icon.icns",
       "hardenedRuntime": true
     },
     "dmg": {
       "title": "IPA Scrabble",
-      "background": "build/dmg-background.png",
       "window": {
         "width": 540,
         "height": 380
