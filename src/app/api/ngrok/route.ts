@@ -5,8 +5,18 @@ import { join } from 'path';
 // Cache ngrok URL to avoid spawning multiple processes
 let cachedNgrokUrl: string | null = null;
 
-export async function GET() {
+export async function POST(request: Request) {
   try {
+    const body = await request.json();
+    const authtoken = body.authtoken || process.env.NGROK_AUTHTOKEN;
+
+    if (!authtoken) {
+      return NextResponse.json(
+        { error: 'No authtoken provided', details: 'Please set up your ngrok authtoken' },
+        { status: 400 }
+      );
+    }
+
     // Return cached URL if available
     if (cachedNgrokUrl) {
       return NextResponse.json({
@@ -28,6 +38,7 @@ export async function GET() {
     const url = await ngrok.connect({
       addr: 3004,
       name: `ipa-scrabble-${Date.now()}`,
+      authtoken,
       binPath: () => join(process.cwd(), 'node_modules', 'ngrok', 'bin')
     });
     console.log('Ngrok tunnel URL:', url);

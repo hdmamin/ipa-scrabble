@@ -10,11 +10,11 @@ npm install
 
 ### Ngrok (for multiplayer)
 
-To host games for remote players, you need an ngrok authtoken:
+To host games for remote players, you need a free ngrok account:
 
 1. Sign up at https://dashboard.ngrok.com (free)
 2. Copy your authtoken from the dashboard
-3. Run: `npx ngrok config add-authtoken <your-token>`
+3. When you click "Host a Game" in the app, you'll be prompted to paste your authtoken
 
 ## Running
 

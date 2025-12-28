@@ -45,6 +45,14 @@ const LobbyScreen: React.FC<LobbyScreenProps> = ({
   const [isJoining, setIsJoining] = useState(false);
   const [isStartingNgrok, setIsStartingNgrok] = useState(false);
   const [randomFact, setRandomFact] = useState('');
+  const [ngrokAuthtoken, setNgrokAuthtoken] = useState('');
+  const [showAuthtokenPrompt, setShowAuthtokenPrompt] = useState(false);
+
+  // Load saved authtoken from localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem('ngrok_authtoken');
+    if (saved) setNgrokAuthtoken(saved);
+  }, []);
 
   // Pick a random linguistics fact on client-side only to avoid hydration errors
   useEffect(() => {
@@ -64,11 +72,22 @@ const LobbyScreen: React.FC<LobbyScreenProps> = ({
       return;
     }
 
+    // Check for authtoken
+    const token = ngrokAuthtoken || localStorage.getItem('ngrok_authtoken');
+    if (!token) {
+      setShowAuthtokenPrompt(true);
+      return;
+    }
+
     setIsStartingNgrok(true);
-    
+
     try {
       // Start ngrok tunnel
-      const response = await fetch('/api/ngrok');
+      const response = await fetch('/api/ngrok', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ authtoken: token })
+      });
       const data = await response.json();
       
       if (data.error) {
@@ -155,9 +174,59 @@ const LobbyScreen: React.FC<LobbyScreenProps> = ({
     }
   }, []);
 
+  const saveAuthtoken = () => {
+    if (ngrokAuthtoken.trim()) {
+      localStorage.setItem('ngrok_authtoken', ngrokAuthtoken.trim());
+      setShowAuthtokenPrompt(false);
+      toast.success('Authtoken saved! Click Host Game again.');
+    } else {
+      toast.error('Please enter a valid authtoken');
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 p-4">
       <Toaster />
+
+      {/* Ngrok Authtoken Prompt */}
+      {showAuthtokenPrompt && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <Card className="w-full max-w-md mx-4">
+            <CardHeader>
+              <CardTitle>Ngrok Setup Required</CardTitle>
+              <p className="text-sm text-muted-foreground">
+                To host online games, you need a free ngrok account.
+              </p>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <ol className="list-decimal list-inside space-y-2 text-sm">
+                <li>Go to <a href="https://dashboard.ngrok.com/signup" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">dashboard.ngrok.com</a> and sign up (free)</li>
+                <li>Copy your authtoken from the dashboard</li>
+                <li>Paste it below</li>
+              </ol>
+              <div className="space-y-2">
+                <Label htmlFor="authtoken">Authtoken</Label>
+                <Input
+                  id="authtoken"
+                  type="password"
+                  placeholder="Paste your ngrok authtoken"
+                  value={ngrokAuthtoken}
+                  onChange={(e) => setNgrokAuthtoken(e.target.value)}
+                />
+              </div>
+              <div className="flex gap-2">
+                <Button variant="outline" onClick={() => setShowAuthtokenPrompt(false)} className="flex-1">
+                  Cancel
+                </Button>
+                <Button onClick={saveAuthtoken} className="flex-1">
+                  Save
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
       <Card className="w-full max-w-md shadow-xl">
         <CardHeader className="text-center">
           <CardTitle className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
