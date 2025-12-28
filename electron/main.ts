@@ -1,12 +1,17 @@
+console.log('=== Electron main.ts loading ===');
+
 import { app, BrowserWindow, ipcMain } from 'electron';
 import * as path from 'path';
 import { spawn, ChildProcess, fork } from 'child_process';
+
+console.log('=== Imports complete ===');
 
 let mainWindow: BrowserWindow | null = null;
 let nextProcess: ChildProcess | null = null;
 let scrabbleProcess: ChildProcess | null = null;
 
-const isDev = process.env.NODE_ENV === 'development';
+// app.isPackaged is true when running from a built .app bundle
+const isDev = !app.isPackaged;
 const PORT = 3000;
 const GAME_SERVICE_PORT = 3004;
 
@@ -74,14 +79,23 @@ function startServices() {
     const serverPath = getResourcePath('.next', 'standalone', 'server.js');
     console.log('Server path:', serverPath);
 
-    nextProcess = fork(serverPath, [], {
+    nextProcess = spawn(process.execPath, [serverPath], {
       cwd: getResourcePath('.next', 'standalone'),
       env: {
         ...process.env,
+        ELECTRON_RUN_AS_NODE: '1',
         NODE_ENV: 'production',
         PORT: String(PORT),
       },
-      stdio: 'inherit',
+      stdio: ['ignore', 'pipe', 'pipe'],
+    });
+
+    nextProcess.stdout?.on('data', (data) => {
+      console.log('[NextJS]', data.toString());
+    });
+
+    nextProcess.stderr?.on('data', (data) => {
+      console.error('[NextJS Error]', data.toString());
     });
 
     nextProcess.on('error', (err) => {
@@ -93,12 +107,22 @@ function startServices() {
     const gameServicePath = getResourcePath('mini-services', 'scrabble-game-service', 'index.js');
     console.log('Game service path:', gameServicePath);
 
-    scrabbleProcess = fork(gameServicePath, [], {
+    // Use spawn with node instead of fork for better compatibility
+    scrabbleProcess = spawn(process.execPath, [gameServicePath], {
       env: {
         ...process.env,
+        ELECTRON_RUN_AS_NODE: '1',
         PORT: String(GAME_SERVICE_PORT),
       },
-      stdio: 'inherit',
+      stdio: ['ignore', 'pipe', 'pipe'],
+    });
+
+    scrabbleProcess.stdout?.on('data', (data) => {
+      console.log('[GameService]', data.toString());
+    });
+
+    scrabbleProcess.stderr?.on('data', (data) => {
+      console.error('[GameService Error]', data.toString());
     });
   }
 
@@ -125,10 +149,42 @@ function stopServices() {
   }
 }
 
+// Wait for server to be ready
+function waitForServer(url: string, maxAttempts = 30): Promise<void> {
+  return new Promise((resolve, reject) => {
+    let attempts = 0;
+    const check = () => {
+      attempts++;
+      console.log(`Checking server (attempt ${attempts})...`);
+      fetch(url)
+        .then(() => {
+          console.log('Server is ready!');
+          resolve();
+        })
+        .catch(() => {
+          if (attempts >= maxAttempts) {
+            reject(new Error('Server failed to start'));
+          } else {
+            setTimeout(check, 1000);
+          }
+        });
+    };
+    check();
+  });
+}
+
 // App lifecycle
-app.whenReady().then(() => {
-  createWindow();
+app.whenReady().then(async () => {
   startServices();
+
+  // Wait for Next.js server to be ready
+  try {
+    await waitForServer(`http://localhost:${PORT}`);
+  } catch (err) {
+    console.error('Failed to start server:', err);
+  }
+
+  createWindow();
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
