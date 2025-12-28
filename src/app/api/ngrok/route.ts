@@ -57,16 +57,26 @@ export async function POST(request: Request) {
 
     // In packaged app, use the bundled binary from Resources
     const isPackaged = process.env.NODE_ENV === 'production';
-    const binPath = isPackaged
-      ? () => join(process.resourcesPath, 'ngrok', 'bin', 'ngrok')
-      : () => join(process.cwd(), 'node_modules', 'ngrok', 'bin', 'ngrok');
+    let ngrokBinaryPath: string;
 
-    console.log('Ngrok binary path:', binPath());
+    if (isPackaged) {
+      // In packaged app, get the current path and replace .next/standalone with just ngrok-binary
+      const currentPath = process.cwd(); // should be something like .../Resources/.next/standalone
+      const resourcesPath = currentPath.replace('/.next/standalone', '');
+      ngrokBinaryPath = join(resourcesPath, 'ngrok-binary');
+    } else {
+      // In development, use node_modules
+      ngrokBinaryPath = join(process.cwd(), 'node_modules', 'ngrok', 'bin', 'ngrok');
+    }
+
+    console.log('Working directory:', process.cwd());
+    console.log('Ngrok binary path:', ngrokBinaryPath);
+    console.log('Binary exists:', existsSync(ngrokBinaryPath));
 
     const url = await ngrok.connect({
       addr: 3004,
       authtoken,
-      binPath
+      binPath: () => ngrokBinaryPath
     });
     console.log('Ngrok tunnel URL:', url);
 
