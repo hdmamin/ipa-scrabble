@@ -8,7 +8,7 @@
     "dev": "next dev -p 3000 2>&1 | tee dev.log",
     "electron:dev": "concurrently \"bun run dev\" \"wait-on http://localhost:3000 && electron .\"",
     "build": "next build && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/",
-    "build:electron": "tsc -p electron/tsconfig.json && bun build mini-services/scrabble-game-service/index.ts --outdir mini-services/scrabble-game-service --target node && electron-builder",
+    "build:electron": "tsc -p electron/tsconfig.json && bun build mini-services/scrabble-game-service/index.ts --outdir mini-services/scrabble-game-service --target node --format cjs && electron-builder",
     "build:all": "npm run build && npm run build:electron",
     "start": "NODE_ENV=production bun .next/standalone/server.js 2>&1 | tee server.log",
     "lint": "next lint",
@@ -114,9 +114,8 @@
       "buildResources": "build"
     },
     "files": [
-      "dist/electron/**/*",
-      "!**/node_modules",
-      "!node_modules/**"
+      "dist/electron/main.js",
+      "!**/node_modules"
     ],
     "extraResources": [
       {

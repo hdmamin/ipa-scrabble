@@ -1,4 +1,3 @@
-import { createRequire } from "node:module";
 var __create = Object.create;
 var __getProtoOf = Object.getPrototypeOf;
 var __defProp = Object.defineProperty;
@@ -16,12 +15,11 @@ var __toESM = (mod, isNodeMode, target) => {
   return to;
 };
 var __commonJS = (cb, mod) => () => (mod || cb((mod = { exports: {} }).exports, mod), mod.exports);
-var __require = /* @__PURE__ */ createRequire(import.meta.url);
 
 // node_modules/accepts/node_modules/negotiator/lib/charset.js
-var require_charset = __commonJS((exports, module) => {
-  module.exports = preferredCharsets;
-  module.exports.preferredCharsets = preferredCharsets;
+var require_charset = __commonJS((exports2, module2) => {
+  module2.exports = preferredCharsets;
+  module2.exports.preferredCharsets = preferredCharsets;
   var simpleCharsetRegExp = /^\s*([^\s;]+)\s*(?:;(.*))?$/;
   function parseAcceptCharset(accept) {
     var accepts = accept.split(",");
@@ -104,9 +102,9 @@ var require_charset = __commonJS((exports, module) => {
 });
 
 // node_modules/accepts/node_modules/negotiator/lib/encoding.js
-var require_encoding = __commonJS((exports, module) => {
-  module.exports = preferredEncodings;
-  module.exports.preferredEncodings = preferredEncodings;
+var require_encoding = __commonJS((exports2, module2) => {
+  module2.exports = preferredEncodings;
+  module2.exports.preferredEncodings = preferredEncodings;
   var simpleEncodingRegExp = /^\s*([^\s;]+)\s*(?:;(.*))?$/;
   function parseAcceptEncoding(accept) {
     var accepts = accept.split(",");
@@ -200,9 +198,9 @@ var require_encoding = __commonJS((exports, module) => {
 });
 
 // node_modules/accepts/node_modules/negotiator/lib/language.js
-var require_language = __commonJS((exports, module) => {
-  module.exports = preferredLanguages;
-  module.exports.preferredLanguages = preferredLanguages;
+var require_language = __commonJS((exports2, module2) => {
+  module2.exports = preferredLanguages;
+  module2.exports.preferredLanguages = preferredLanguages;
   var simpleLanguageRegExp = /^\s*([^\s\-;]+)(?:-([^\s;]+))?\s*(?:;(.*))?$/;
   function parseAcceptLanguage(accept) {
     var accepts = accept.split(",");
@@ -296,9 +294,9 @@ var require_language = __commonJS((exports, module) => {
 });
 
 // node_modules/accepts/node_modules/negotiator/lib/mediaType.js
-var require_mediaType = __commonJS((exports, module) => {
-  module.exports = preferredMediaTypes;
-  module.exports.preferredMediaTypes = preferredMediaTypes;
+var require_mediaType = __commonJS((exports2, module2) => {
+  module2.exports = preferredMediaTypes;
+  module2.exports.preferredMediaTypes = preferredMediaTypes;
   var simpleMediaTypeRegExp = /^\s*([^\s\/;]+)\/([^;\s]+)\s*(?:;(.*))?$/;
   function parseAccept(accept) {
     var accepts = splitMediaTypes(accept);
@@ -456,7 +454,7 @@ var require_mediaType = __commonJS((exports, module) => {
 });
 
 // node_modules/accepts/node_modules/negotiator/index.js
-var require_negotiator = __commonJS((exports, module) => {
+var require_negotiator = __commonJS((exports2, module2) => {
   /*!
    * negotiator
    * Copyright(c) 2012 Federico Romero
@@ -468,8 +466,8 @@ var require_negotiator = __commonJS((exports, module) => {
   var preferredEncodings = require_encoding();
   var preferredLanguages = require_language();
   var preferredMediaTypes = require_mediaType();
-  module.exports = Negotiator;
-  module.exports.Negotiator = Negotiator;
+  module2.exports = Negotiator;
+  module2.exports.Negotiator = Negotiator;
   function Negotiator(request) {
     if (!(this instanceof Negotiator)) {
       return new Negotiator(request);
@@ -515,8 +513,8 @@ var require_negotiator = __commonJS((exports, module) => {
 });
 
 // node_modules/mime-types/node_modules/mime-db/db.json
-var require_db = __commonJS((exports, module) => {
-  module.exports = {
+var require_db = __commonJS((exports2, module2) => {
+  module2.exports = {
     "application/1d-interleaved-parityfec": {
       source: "iana"
     },
@@ -9038,18 +9036,18 @@ var require_db = __commonJS((exports, module) => {
 });
 
 // node_modules/mime-types/node_modules/mime-db/index.js
-var require_mime_db = __commonJS((exports, module) => {
+var require_mime_db = __commonJS((exports2, module2) => {
   /*!
    * mime-db
    * Copyright(c) 2014 Jonathan Ong
    * Copyright(c) 2015-2022 Douglas Christopher Wilson
    * MIT Licensed
    */
-  module.exports = require_db();
+  module2.exports = require_db();
 });
 
 // node_modules/mime-types/index.js
-var require_mime_types = __commonJS((exports) => {
+var require_mime_types = __commonJS((exports2) => {
   /*!
    * mime-types
    * Copyright(c) 2014 Jonathan Ong
@@ -9057,17 +9055,17 @@ var require_mime_types = __commonJS((exports) => {
    * MIT Licensed
    */
   var db = require_mime_db();
-  var extname = __require("path").extname;
+  var extname = require("path").extname;
   var EXTRACT_TYPE_REGEXP = /^\s*([^;\s]*)(?:;|\s|$)/;
   var TEXT_TYPE_REGEXP = /^text\//i;
-  exports.charset = charset;
-  exports.charsets = { lookup: charset };
-  exports.contentType = contentType;
-  exports.extension = extension;
-  exports.extensions = Object.create(null);
-  exports.lookup = lookup;
-  exports.types = Object.create(null);
-  populateMaps(exports.extensions, exports.types);
+  exports2.charset = charset;
+  exports2.charsets = { lookup: charset };
+  exports2.contentType = contentType;
+  exports2.extension = extension;
+  exports2.extensions = Object.create(null);
+  exports2.lookup = lookup;
+  exports2.types = Object.create(null);
+  populateMaps(exports2.extensions, exports2.types);
   function charset(type) {
     if (!type || typeof type !== "string") {
       return false;
@@ -9086,12 +9084,12 @@ var require_mime_types = __commonJS((exports) => {
     if (!str || typeof str !== "string") {
       return false;
     }
-    var mime = str.indexOf("/") === -1 ? exports.lookup(str) : str;
+    var mime = str.indexOf("/") === -1 ? exports2.lookup(str) : str;
     if (!mime) {
       return false;
     }
     if (mime.indexOf("charset") === -1) {
-      var charset2 = exports.charset(mime);
+      var charset2 = exports2.charset(mime);
       if (charset2)
         mime += "; charset=" + charset2.toLowerCase();
     }
@@ -9102,7 +9100,7 @@ var require_mime_types = __commonJS((exports) => {
       return false;
     }
     var match = EXTRACT_TYPE_REGEXP.exec(type);
-    var exts = match && exports.extensions[match[1].toLowerCase()];
+    var exts = match && exports2.extensions[match[1].toLowerCase()];
     if (!exts || !exts.length) {
       return false;
     }
@@ -9116,7 +9114,7 @@ var require_mime_types = __commonJS((exports) => {
     if (!extension2) {
       return false;
     }
-    return exports.types[extension2] || false;
+    return exports2.types[extension2] || false;
   }
   function populateMaps(extensions, types) {
     var preference = ["nginx", "apache", undefined, "iana"];
@@ -9143,7 +9141,7 @@ var require_mime_types = __commonJS((exports) => {
 });
 
 // node_modules/accepts/index.js
-var require_accepts = __commonJS((exports, module) => {
+var require_accepts = __commonJS((exports2, module2) => {
   /*!
    * accepts
    * Copyright(c) 2014 Jonathan Ong
@@ -9152,7 +9150,7 @@ var require_accepts = __commonJS((exports, module) => {
    */
   var Negotiator = require_negotiator();
   var mime = require_mime_types();
-  module.exports = Accepts;
+  module2.exports = Accepts;
   function Accepts(req) {
     if (!(this instanceof Accepts)) {
       return new Accepts(req);
@@ -9227,11 +9225,11 @@ var require_accepts = __commonJS((exports, module) => {
 });
 
 // node_modules/base64id/lib/base64id.js
-var require_base64id = __commonJS((exports, module) => {
+var require_base64id = __commonJS((exports2, module2) => {
   /*!
    * base64id v0.1.0
    */
-  var crypto = __require("crypto");
+  var crypto = require("crypto");
   var Base64Id = function() {};
   Base64Id.prototype.getRandomBytes = function(bytes) {
     var BUFFER_SIZE = 4096;
@@ -9285,15 +9283,15 @@ var require_base64id = __commonJS((exports, module) => {
     }
     return rand.toString("base64").replace(/\//g, "_").replace(/\+/g, "-");
   };
-  exports = module.exports = new Base64Id;
+  exports2 = module2.exports = new Base64Id;
 });
 
 // node_modules/engine.io-parser/build/cjs/commons.js
-var require_commons = __commonJS((exports) => {
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.ERROR_PACKET = exports.PACKET_TYPES_REVERSE = exports.PACKET_TYPES = undefined;
+var require_commons = __commonJS((exports2) => {
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.ERROR_PACKET = exports2.PACKET_TYPES_REVERSE = exports2.PACKET_TYPES = undefined;
   var PACKET_TYPES = Object.create(null);
-  exports.PACKET_TYPES = PACKET_TYPES;
+  exports2.PACKET_TYPES = PACKET_TYPES;
   PACKET_TYPES["open"] = "0";
   PACKET_TYPES["close"] = "1";
   PACKET_TYPES["ping"] = "2";
@@ -9302,19 +9300,19 @@ var require_commons = __commonJS((exports) => {
   PACKET_TYPES["upgrade"] = "5";
   PACKET_TYPES["noop"] = "6";
   var PACKET_TYPES_REVERSE = Object.create(null);
-  exports.PACKET_TYPES_REVERSE = PACKET_TYPES_REVERSE;
+  exports2.PACKET_TYPES_REVERSE = PACKET_TYPES_REVERSE;
   Object.keys(PACKET_TYPES).forEach((key) => {
     PACKET_TYPES_REVERSE[PACKET_TYPES[key]] = key;
   });
   var ERROR_PACKET = { type: "error", data: "parser error" };
-  exports.ERROR_PACKET = ERROR_PACKET;
+  exports2.ERROR_PACKET = ERROR_PACKET;
 });
 
 // node_modules/engine.io-parser/build/cjs/encodePacket.js
-var require_encodePacket = __commonJS((exports) => {
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.encodePacket = undefined;
-  exports.encodePacketToBinary = encodePacketToBinary;
+var require_encodePacket = __commonJS((exports2) => {
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.encodePacket = undefined;
+  exports2.encodePacketToBinary = encodePacketToBinary;
   var commons_js_1 = require_commons();
   var encodePacket = ({ type, data }, supportsBinary, callback) => {
     if (data instanceof ArrayBuffer || ArrayBuffer.isView(data)) {
@@ -9322,7 +9320,7 @@ var require_encodePacket = __commonJS((exports) => {
     }
     return callback(commons_js_1.PACKET_TYPES[type] + (data || ""));
   };
-  exports.encodePacket = encodePacket;
+  exports2.encodePacket = encodePacket;
   var toBuffer = (data, forceBufferConversion) => {
     if (Buffer.isBuffer(data) || data instanceof Uint8Array && !forceBufferConversion) {
       return data;
@@ -9337,7 +9335,7 @@ var require_encodePacket = __commonJS((exports) => {
     if (packet.data instanceof ArrayBuffer || ArrayBuffer.isView(packet.data)) {
       return callback(toBuffer(packet.data, false));
     }
-    (0, exports.encodePacket)(packet, true, (encoded) => {
+    (0, exports2.encodePacket)(packet, true, (encoded) => {
       if (!TEXT_ENCODER) {
         TEXT_ENCODER = new TextEncoder;
       }
@@ -9347,9 +9345,9 @@ var require_encodePacket = __commonJS((exports) => {
 });
 
 // node_modules/engine.io-parser/build/cjs/decodePacket.js
-var require_decodePacket = __commonJS((exports) => {
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.decodePacket = undefined;
+var require_decodePacket = __commonJS((exports2) => {
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.decodePacket = undefined;
   var commons_js_1 = require_commons();
   var decodePacket = (encodedPacket, binaryType) => {
     if (typeof encodedPacket !== "string") {
@@ -9376,7 +9374,7 @@ var require_decodePacket = __commonJS((exports) => {
       type: commons_js_1.PACKET_TYPES_REVERSE[type]
     };
   };
-  exports.decodePacket = decodePacket;
+  exports2.decodePacket = decodePacket;
   var mapBinary = (data, binaryType) => {
     switch (binaryType) {
       case "arraybuffer":
@@ -9399,17 +9397,17 @@ var require_decodePacket = __commonJS((exports) => {
 });
 
 // node_modules/engine.io-parser/build/cjs/index.js
-var require_cjs = __commonJS((exports) => {
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.decodePayload = exports.decodePacket = exports.encodePayload = exports.encodePacket = exports.protocol = undefined;
-  exports.createPacketEncoderStream = createPacketEncoderStream;
-  exports.createPacketDecoderStream = createPacketDecoderStream;
+var require_cjs = __commonJS((exports2) => {
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.decodePayload = exports2.decodePacket = exports2.encodePayload = exports2.encodePacket = exports2.protocol = undefined;
+  exports2.createPacketEncoderStream = createPacketEncoderStream;
+  exports2.createPacketDecoderStream = createPacketDecoderStream;
   var encodePacket_js_1 = require_encodePacket();
-  Object.defineProperty(exports, "encodePacket", { enumerable: true, get: function() {
+  Object.defineProperty(exports2, "encodePacket", { enumerable: true, get: function() {
     return encodePacket_js_1.encodePacket;
   } });
   var decodePacket_js_1 = require_decodePacket();
-  Object.defineProperty(exports, "decodePacket", { enumerable: true, get: function() {
+  Object.defineProperty(exports2, "decodePacket", { enumerable: true, get: function() {
     return decodePacket_js_1.decodePacket;
   } });
   var commons_js_1 = require_commons();
@@ -9427,7 +9425,7 @@ var require_cjs = __commonJS((exports) => {
       });
     });
   };
-  exports.encodePayload = encodePayload;
+  exports2.encodePayload = encodePayload;
   var decodePayload = (encodedPayload, binaryType) => {
     const encodedPackets = encodedPayload.split(SEPARATOR);
     const packets = [];
@@ -9440,7 +9438,7 @@ var require_cjs = __commonJS((exports) => {
     }
     return packets;
   };
-  exports.decodePayload = decodePayload;
+  exports2.decodePayload = decodePayload;
   function createPacketEncoderStream() {
     return new TransformStream({
       transform(packet, controller) {
@@ -9554,11 +9552,11 @@ var require_cjs = __commonJS((exports) => {
       }
     });
   }
-  exports.protocol = 4;
+  exports2.protocol = 4;
 });
 
 // node_modules/engine.io/build/parser-v3/utf8.js
-var require_utf8 = __commonJS((exports, module) => {
+var require_utf8 = __commonJS((exports2, module2) => {
   /*! https://mths.be/utf8js v2.1.2 by @mathias */
   var stringFromCharCode = String.fromCharCode;
   function ucs2decode(string) {
@@ -9720,7 +9718,7 @@ var require_utf8 = __commonJS((exports, module) => {
     }
     return ucs2encode(codePoints);
   }
-  module.exports = {
+  module2.exports = {
     version: "2.1.2",
     encode: utf8encode,
     decode: utf8decode
@@ -9728,19 +9726,19 @@ var require_utf8 = __commonJS((exports, module) => {
 });
 
 // node_modules/engine.io/build/parser-v3/index.js
-var require_parser_v3 = __commonJS((exports) => {
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.packets = exports.protocol = undefined;
-  exports.encodePacket = encodePacket;
-  exports.encodeBase64Packet = encodeBase64Packet;
-  exports.decodePacket = decodePacket;
-  exports.decodeBase64Packet = decodeBase64Packet;
-  exports.encodePayload = encodePayload;
-  exports.decodePayload = decodePayload;
-  exports.encodePayloadAsBinary = encodePayloadAsBinary;
-  exports.decodePayloadAsBinary = decodePayloadAsBinary;
+var require_parser_v3 = __commonJS((exports2) => {
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.packets = exports2.protocol = undefined;
+  exports2.encodePacket = encodePacket;
+  exports2.encodeBase64Packet = encodeBase64Packet;
+  exports2.decodePacket = decodePacket;
+  exports2.decodeBase64Packet = decodeBase64Packet;
+  exports2.encodePayload = encodePayload;
+  exports2.decodePayload = decodePayload;
+  exports2.encodePayloadAsBinary = encodePayloadAsBinary;
+  exports2.decodePayloadAsBinary = decodePayloadAsBinary;
   var utf8 = require_utf8();
-  exports.protocol = 3;
+  exports2.protocol = 3;
   var hasBinary = (packets) => {
     for (const packet of packets) {
       if (packet.data instanceof ArrayBuffer || ArrayBuffer.isView(packet.data)) {
@@ -9749,7 +9747,7 @@ var require_parser_v3 = __commonJS((exports) => {
     }
     return false;
   };
-  exports.packets = {
+  exports2.packets = {
     open: 0,
     close: 1,
     ping: 2,
@@ -9758,7 +9756,7 @@ var require_parser_v3 = __commonJS((exports) => {
     upgrade: 5,
     noop: 6
   };
-  var packetslist = Object.keys(exports.packets);
+  var packetslist = Object.keys(exports2.packets);
   var err = { type: "error", data: "parser error" };
   var EMPTY_BUFFER = Buffer.concat([]);
   function encodePacket(packet, supportsBinary, utf8encode, callback) {
@@ -9775,7 +9773,7 @@ var require_parser_v3 = __commonJS((exports) => {
     } else if (packet.data && (packet.data.buffer || packet.data) instanceof ArrayBuffer) {
       return encodeBuffer({ type: packet.type, data: arrayBufferToBuffer(packet.data) }, supportsBinary, callback);
     }
-    var encoded = exports.packets[packet.type];
+    var encoded = exports2.packets[packet.type];
     if (packet.data !== undefined) {
       encoded += utf8encode ? utf8.encode(String(packet.data), { strict: false }) : String(packet.data);
     }
@@ -9787,12 +9785,12 @@ var require_parser_v3 = __commonJS((exports) => {
     }
     var data = packet.data;
     var typeBuffer = Buffer.allocUnsafe(1);
-    typeBuffer[0] = exports.packets[packet.type];
+    typeBuffer[0] = exports2.packets[packet.type];
     return callback(Buffer.concat([typeBuffer, data]));
   }
   function encodeBase64Packet(packet, callback) {
     var data = Buffer.isBuffer(packet.data) ? packet.data : arrayBufferToBuffer(packet.data);
-    var message = "b" + exports.packets[packet.type];
+    var message = "b" + exports2.packets[packet.type];
     message += data.toString("base64");
     return callback(message);
   }
@@ -10014,14 +10012,14 @@ var require_parser_v3 = __commonJS((exports) => {
 });
 
 // node_modules/ms/index.js
-var require_ms = __commonJS((exports, module) => {
+var require_ms = __commonJS((exports2, module2) => {
   var s = 1000;
   var m = s * 60;
   var h = m * 60;
   var d = h * 24;
   var w = d * 7;
   var y = d * 365.25;
-  module.exports = function(val, options) {
+  module2.exports = function(val, options) {
     options = options || {};
     var type = typeof val;
     if (type === "string" && val.length > 0) {
@@ -10124,7 +10122,7 @@ var require_ms = __commonJS((exports, module) => {
 });
 
 // node_modules/debug/src/common.js
-var require_common = __commonJS((exports, module) => {
+var require_common = __commonJS((exports2, module2) => {
   function setup(env) {
     createDebug.debug = createDebug;
     createDebug.default = createDebug;
@@ -10295,17 +10293,17 @@ var require_common = __commonJS((exports, module) => {
     createDebug.enable(createDebug.load());
     return createDebug;
   }
-  module.exports = setup;
+  module2.exports = setup;
 });
 
 // node_modules/debug/src/browser.js
-var require_browser = __commonJS((exports, module) => {
-  exports.formatArgs = formatArgs;
-  exports.save = save;
-  exports.load = load;
-  exports.useColors = useColors;
-  exports.storage = localstorage();
-  exports.destroy = (() => {
+var require_browser = __commonJS((exports2, module2) => {
+  exports2.formatArgs = formatArgs;
+  exports2.save = save;
+  exports2.load = load;
+  exports2.useColors = useColors;
+  exports2.storage = localstorage();
+  exports2.destroy = (() => {
     let warned = false;
     return () => {
       if (!warned) {
@@ -10314,7 +10312,7 @@ var require_browser = __commonJS((exports, module) => {
       }
     };
   })();
-  exports.colors = [
+  exports2.colors = [
     "#0000CC",
     "#0000FF",
     "#0033CC",
@@ -10403,7 +10401,7 @@ var require_browser = __commonJS((exports, module) => {
     return typeof document !== "undefined" && document.documentElement && document.documentElement.style && document.documentElement.style.WebkitAppearance || typeof window !== "undefined" && window.console && (window.console.firebug || window.console.exception && window.console.table) || typeof navigator !== "undefined" && navigator.userAgent && (m = navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/)) && parseInt(m[1], 10) >= 31 || typeof navigator !== "undefined" && navigator.userAgent && navigator.userAgent.toLowerCase().match(/applewebkit\/(\d+)/);
   }
   function formatArgs(args) {
-    args[0] = (this.useColors ? "%c" : "") + this.namespace + (this.useColors ? " %c" : " ") + args[0] + (this.useColors ? "%c " : " ") + "+" + module.exports.humanize(this.diff);
+    args[0] = (this.useColors ? "%c" : "") + this.namespace + (this.useColors ? " %c" : " ") + args[0] + (this.useColors ? "%c " : " ") + "+" + module2.exports.humanize(this.diff);
     if (!this.useColors) {
       return;
     }
@@ -10422,20 +10420,20 @@ var require_browser = __commonJS((exports, module) => {
     });
     args.splice(lastC, 0, c);
   }
-  exports.log = console.debug || console.log || (() => {});
+  exports2.log = console.debug || console.log || (() => {});
   function save(namespaces) {
     try {
       if (namespaces) {
-        exports.storage.setItem("debug", namespaces);
+        exports2.storage.setItem("debug", namespaces);
       } else {
-        exports.storage.removeItem("debug");
+        exports2.storage.removeItem("debug");
       }
     } catch (error) {}
   }
   function load() {
     let r;
     try {
-      r = exports.storage.getItem("debug") || exports.storage.getItem("DEBUG");
+      r = exports2.storage.getItem("debug") || exports2.storage.getItem("DEBUG");
     } catch (error) {}
     if (!r && typeof process !== "undefined" && "env" in process) {
       r = process.env.DEBUG;
@@ -10447,8 +10445,8 @@ var require_browser = __commonJS((exports, module) => {
       return localStorage;
     } catch (error) {}
   }
-  module.exports = require_common()(exports);
-  var { formatters } = module.exports;
+  module2.exports = require_common()(exports2);
+  var { formatters } = module2.exports;
   formatters.j = function(v) {
     try {
       return JSON.stringify(v);
@@ -10459,8 +10457,8 @@ var require_browser = __commonJS((exports, module) => {
 });
 
 // node_modules/has-flag/index.js
-var require_has_flag = __commonJS((exports, module) => {
-  module.exports = (flag, argv = process.argv) => {
+var require_has_flag = __commonJS((exports2, module2) => {
+  module2.exports = (flag, argv = process.argv) => {
     const prefix = flag.startsWith("-") ? "" : flag.length === 1 ? "-" : "--";
     const position = argv.indexOf(prefix + flag);
     const terminatorPosition = argv.indexOf("--");
@@ -10469,9 +10467,9 @@ var require_has_flag = __commonJS((exports, module) => {
 });
 
 // node_modules/supports-color/index.js
-var require_supports_color = __commonJS((exports, module) => {
-  var os = __require("os");
-  var tty = __require("tty");
+var require_supports_color = __commonJS((exports2, module2) => {
+  var os = require("os");
+  var tty = require("tty");
   var hasFlag = require_has_flag();
   var { env } = process;
   var flagForceColor;
@@ -10572,7 +10570,7 @@ var require_supports_color = __commonJS((exports, module) => {
     });
     return translateLevel(level);
   }
-  module.exports = {
+  module2.exports = {
     supportsColor: getSupportLevel,
     stdout: getSupportLevel({ isTTY: tty.isatty(1) }),
     stderr: getSupportLevel({ isTTY: tty.isatty(2) })
@@ -10580,21 +10578,21 @@ var require_supports_color = __commonJS((exports, module) => {
 });
 
 // node_modules/debug/src/node.js
-var require_node = __commonJS((exports, module) => {
-  var tty = __require("tty");
-  var util = __require("util");
-  exports.init = init;
-  exports.log = log;
-  exports.formatArgs = formatArgs;
-  exports.save = save;
-  exports.load = load;
-  exports.useColors = useColors;
-  exports.destroy = util.deprecate(() => {}, "Instance method `debug.destroy()` is deprecated and no longer does anything. It will be removed in the next major version of `debug`.");
-  exports.colors = [6, 2, 3, 4, 5, 1];
+var require_node = __commonJS((exports2, module2) => {
+  var tty = require("tty");
+  var util = require("util");
+  exports2.init = init;
+  exports2.log = log;
+  exports2.formatArgs = formatArgs;
+  exports2.save = save;
+  exports2.load = load;
+  exports2.useColors = useColors;
+  exports2.destroy = util.deprecate(() => {}, "Instance method `debug.destroy()` is deprecated and no longer does anything. It will be removed in the next major version of `debug`.");
+  exports2.colors = [6, 2, 3, 4, 5, 1];
   try {
     const supportsColor = require_supports_color();
     if (supportsColor && (supportsColor.stderr || supportsColor).level >= 2) {
-      exports.colors = [
+      exports2.colors = [
         20,
         21,
         26,
@@ -10674,7 +10672,7 @@ var require_node = __commonJS((exports, module) => {
       ];
     }
   } catch (error) {}
-  exports.inspectOpts = Object.keys(process.env).filter((key) => {
+  exports2.inspectOpts = Object.keys(process.env).filter((key) => {
     return /^debug_/i.test(key);
   }).reduce((obj, key) => {
     const prop = key.substring(6).toLowerCase().replace(/_([a-z])/g, (_, k) => {
@@ -10694,7 +10692,7 @@ var require_node = __commonJS((exports, module) => {
     return obj;
   }, {});
   function useColors() {
-    return "colors" in exports.inspectOpts ? Boolean(exports.inspectOpts.colors) : tty.isatty(process.stderr.fd);
+    return "colors" in exports2.inspectOpts ? Boolean(exports2.inspectOpts.colors) : tty.isatty(process.stderr.fd);
   }
   function formatArgs(args) {
     const { namespace: name, useColors: useColors2 } = this;
@@ -10705,19 +10703,19 @@ var require_node = __commonJS((exports, module) => {
       args[0] = prefix + args[0].split(`
 `).join(`
 ` + prefix);
-      args.push(colorCode + "m+" + module.exports.humanize(this.diff) + "\x1B[0m");
+      args.push(colorCode + "m+" + module2.exports.humanize(this.diff) + "\x1B[0m");
     } else {
       args[0] = getDate() + name + " " + args[0];
     }
   }
   function getDate() {
-    if (exports.inspectOpts.hideDate) {
+    if (exports2.inspectOpts.hideDate) {
       return "";
     }
     return new Date().toISOString() + " ";
   }
   function log(...args) {
-    return process.stderr.write(util.formatWithOptions(exports.inspectOpts, ...args) + `
+    return process.stderr.write(util.formatWithOptions(exports2.inspectOpts, ...args) + `
 `);
   }
   function save(namespaces) {
@@ -10732,13 +10730,13 @@ var require_node = __commonJS((exports, module) => {
   }
   function init(debug) {
     debug.inspectOpts = {};
-    const keys = Object.keys(exports.inspectOpts);
+    const keys = Object.keys(exports2.inspectOpts);
     for (let i = 0;i < keys.length; i++) {
-      debug.inspectOpts[keys[i]] = exports.inspectOpts[keys[i]];
+      debug.inspectOpts[keys[i]] = exports2.inspectOpts[keys[i]];
     }
   }
-  module.exports = require_common()(exports);
-  var { formatters } = module.exports;
+  module2.exports = require_common()(exports2);
+  var { formatters } = module2.exports;
   formatters.o = function(v) {
     this.inspectOpts.colors = this.useColors;
     return util.inspect(v, this.inspectOpts).split(`
@@ -10751,19 +10749,19 @@ var require_node = __commonJS((exports, module) => {
 });
 
 // node_modules/debug/src/index.js
-var require_src = __commonJS((exports, module) => {
+var require_src = __commonJS((exports2, module2) => {
   if (typeof process === "undefined" || process.type === "renderer" || false || process.__nwjs) {
-    module.exports = require_browser();
+    module2.exports = require_browser();
   } else {
-    module.exports = require_node();
+    module2.exports = require_node();
   }
 });
 
 // node_modules/engine.io/build/transport.js
-var require_transport = __commonJS((exports) => {
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.Transport = undefined;
-  var events_1 = __require("events");
+var require_transport = __commonJS((exports2) => {
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.Transport = undefined;
+  var events_1 = require("events");
   var parser_v4 = require_cjs();
   var parser_v3 = require_parser_v3();
   var debug_1 = require_src();
@@ -10818,16 +10816,16 @@ var require_transport = __commonJS((exports) => {
       this.emit("close");
     }
   }
-  exports.Transport = Transport;
+  exports2.Transport = Transport;
   Transport.upgradesTo = [];
 });
 
 // node_modules/engine.io/build/transports/polling.js
-var require_polling = __commonJS((exports) => {
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.Polling = undefined;
+var require_polling = __commonJS((exports2) => {
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.Polling = undefined;
   var transport_1 = require_transport();
-  var zlib_1 = __require("zlib");
+  var zlib_1 = require("zlib");
   var accepts = require_accepts();
   var debug_1 = require_src();
   var debug = (0, debug_1.default)("engine:polling");
@@ -11069,15 +11067,15 @@ var require_polling = __commonJS((exports) => {
       return headers;
     }
   }
-  exports.Polling = Polling;
+  exports2.Polling = Polling;
 });
 
 // node_modules/engine.io/build/transports/polling-jsonp.js
-var require_polling_jsonp = __commonJS((exports) => {
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.JSONP = undefined;
+var require_polling_jsonp = __commonJS((exports2) => {
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.JSONP = undefined;
   var polling_1 = require_polling();
-  var qs = __require("querystring");
+  var qs = require("querystring");
   var rDoubleSlashes = /\\\\n/g;
   var rSlashes = /(\\)?\\n/g;
 
@@ -11103,13 +11101,13 @@ var require_polling_jsonp = __commonJS((exports) => {
       super.doWrite(data, options, callback);
     }
   }
-  exports.JSONP = JSONP;
+  exports2.JSONP = JSONP;
 });
 
 // node_modules/engine.io/build/transports/websocket.js
-var require_websocket = __commonJS((exports) => {
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.WebSocket = undefined;
+var require_websocket = __commonJS((exports2) => {
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.WebSocket = undefined;
   var transport_1 = require_transport();
   var debug_1 = require_src();
   var debug = (0, debug_1.default)("engine:ws");
@@ -11176,13 +11174,13 @@ var require_websocket = __commonJS((exports) => {
       fn && fn();
     }
   }
-  exports.WebSocket = WebSocket;
+  exports2.WebSocket = WebSocket;
 });
 
 // node_modules/engine.io/build/transports/webtransport.js
-var require_webtransport = __commonJS((exports) => {
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.WebTransport = undefined;
+var require_webtransport = __commonJS((exports2) => {
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.WebTransport = undefined;
   var transport_1 = require_transport();
   var debug_1 = require_src();
   var engine_io_parser_1 = require_cjs();
@@ -11238,17 +11236,17 @@ var require_webtransport = __commonJS((exports) => {
       fn && fn();
     }
   }
-  exports.WebTransport = WebTransport;
+  exports2.WebTransport = WebTransport;
 });
 
 // node_modules/engine.io/build/transports/index.js
-var require_transports = __commonJS((exports) => {
-  Object.defineProperty(exports, "__esModule", { value: true });
+var require_transports = __commonJS((exports2) => {
+  Object.defineProperty(exports2, "__esModule", { value: true });
   var polling_1 = require_polling();
   var polling_jsonp_1 = require_polling_jsonp();
   var websocket_1 = require_websocket();
   var webtransport_1 = require_webtransport();
-  exports.default = {
+  exports2.default = {
     polling,
     websocket: websocket_1.WebSocket,
     webtransport: webtransport_1.WebTransport
@@ -11264,12 +11262,12 @@ var require_transports = __commonJS((exports) => {
 });
 
 // node_modules/engine.io/build/socket.js
-var require_socket = __commonJS((exports) => {
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.Socket = undefined;
-  var events_1 = __require("events");
+var require_socket = __commonJS((exports2) => {
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.Socket = undefined;
+  var events_1 = require("events");
   var debug_1 = require_src();
-  var timers_1 = __require("timers");
+  var timers_1 = require("timers");
   var debug = (0, debug_1.default)("engine:socket");
 
   class Socket extends events_1.EventEmitter {
@@ -11590,19 +11588,19 @@ var require_socket = __commonJS((exports) => {
       this.transport.close(this.onClose.bind(this, "forced close"));
     }
   }
-  exports.Socket = Socket;
+  exports2.Socket = Socket;
 });
 
 // node_modules/cookie/index.js
-var require_cookie = __commonJS((exports) => {
+var require_cookie = __commonJS((exports2) => {
   /*!
    * cookie
    * Copyright(c) 2012-2014 Roman Shtylman
    * Copyright(c) 2015 Douglas Christopher Wilson
    * MIT Licensed
    */
-  exports.parse = parse;
-  exports.serialize = serialize;
+  exports2.parse = parse;
+  exports2.serialize = serialize;
   var __toString = Object.prototype.toString;
   var __hasOwnProperty = Object.prototype.hasOwnProperty;
   var cookieNameRegExp = /^[!#$%&'*+\-.^_`|~0-9A-Za-z]+$/;
@@ -11768,12 +11766,12 @@ var require_cookie = __commonJS((exports) => {
 });
 
 // node_modules/ws/lib/constants.js
-var require_constants = __commonJS((exports, module) => {
+var require_constants = __commonJS((exports2, module2) => {
   var BINARY_TYPES = ["nodebuffer", "arraybuffer", "fragments"];
   var hasBlob = typeof Blob !== "undefined";
   if (hasBlob)
     BINARY_TYPES.push("blob");
-  module.exports = {
+  module2.exports = {
     BINARY_TYPES,
     EMPTY_BUFFER: Buffer.alloc(0),
     GUID: "258EAFA5-E914-47DA-95CA-C5AB0DC85B11",
@@ -11787,7 +11785,7 @@ var require_constants = __commonJS((exports, module) => {
 });
 
 // node_modules/ws/lib/buffer-util.js
-var require_buffer_util = __commonJS((exports, module) => {
+var require_buffer_util = __commonJS((exports2, module2) => {
   var { EMPTY_BUFFER } = require_constants();
   var FastBuffer = Buffer[Symbol.species];
   function concat(list, totalLength) {
@@ -11838,7 +11836,7 @@ var require_buffer_util = __commonJS((exports, module) => {
     }
     return buf;
   }
-  module.exports = {
+  module2.exports = {
     concat,
     mask: _mask,
     toArrayBuffer,
@@ -11848,13 +11846,13 @@ var require_buffer_util = __commonJS((exports, module) => {
   if (!process.env.WS_NO_BUFFER_UTIL) {
     try {
       const bufferUtil = (()=>{throw new Error("Cannot require module "+"bufferutil");})();
-      module.exports.mask = function(source, mask, output, offset, length) {
+      module2.exports.mask = function(source, mask, output, offset, length) {
         if (length < 48)
           _mask(source, mask, output, offset, length);
         else
           bufferUtil.mask(source, mask, output, offset, length);
       };
-      module.exports.unmask = function(buffer, mask) {
+      module2.exports.unmask = function(buffer, mask) {
         if (buffer.length < 32)
           _unmask(buffer, mask);
         else
@@ -11865,7 +11863,7 @@ var require_buffer_util = __commonJS((exports, module) => {
 });
 
 // node_modules/ws/lib/limiter.js
-var require_limiter = __commonJS((exports, module) => {
+var require_limiter = __commonJS((exports2, module2) => {
   var kDone = Symbol("kDone");
   var kRun = Symbol("kRun");
 
@@ -11893,12 +11891,12 @@ var require_limiter = __commonJS((exports, module) => {
       }
     }
   }
-  module.exports = Limiter;
+  module2.exports = Limiter;
 });
 
 // node_modules/ws/lib/permessage-deflate.js
-var require_permessage_deflate = __commonJS((exports, module) => {
-  var zlib = __require("zlib");
+var require_permessage_deflate = __commonJS((exports2, module2) => {
+  var zlib = require("zlib");
   var bufferUtil = require_buffer_util();
   var Limiter = require_limiter();
   var { kStatusCode } = require_constants();
@@ -12132,7 +12130,7 @@ var require_permessage_deflate = __commonJS((exports, module) => {
       });
     }
   }
-  module.exports = PerMessageDeflate;
+  module2.exports = PerMessageDeflate;
   function deflateOnData(chunk) {
     this[kBuffers].push(chunk);
     this[kTotalLength] += chunk.length;
@@ -12161,8 +12159,8 @@ var require_permessage_deflate = __commonJS((exports, module) => {
 });
 
 // node_modules/ws/lib/validation.js
-var require_validation = __commonJS((exports, module) => {
-  var { isUtf8 } = __require("buffer");
+var require_validation = __commonJS((exports2, module2) => {
+  var { isUtf8 } = require("buffer");
   var { hasBlob } = require_constants();
   var tokenChars = [
     0,
@@ -12327,20 +12325,20 @@ var require_validation = __commonJS((exports, module) => {
   function isBlob(value) {
     return hasBlob && typeof value === "object" && typeof value.arrayBuffer === "function" && typeof value.type === "string" && typeof value.stream === "function" && (value[Symbol.toStringTag] === "Blob" || value[Symbol.toStringTag] === "File");
   }
-  module.exports = {
+  module2.exports = {
     isBlob,
     isValidStatusCode,
     isValidUTF8: _isValidUTF8,
     tokenChars
   };
   if (isUtf8) {
-    module.exports.isValidUTF8 = function(buf) {
+    module2.exports.isValidUTF8 = function(buf) {
       return buf.length < 24 ? _isValidUTF8(buf) : isUtf8(buf);
     };
   } else if (!process.env.WS_NO_UTF_8_VALIDATE) {
     try {
       const isValidUTF8 = (()=>{throw new Error("Cannot require module "+"utf-8-validate");})();
-      module.exports.isValidUTF8 = function(buf) {
+      module2.exports.isValidUTF8 = function(buf) {
         return buf.length < 32 ? _isValidUTF8(buf) : isValidUTF8(buf);
       };
     } catch (e) {}
@@ -12348,8 +12346,8 @@ var require_validation = __commonJS((exports, module) => {
 });
 
 // node_modules/ws/lib/receiver.js
-var require_receiver = __commonJS((exports, module) => {
-  var { Writable } = __require("stream");
+var require_receiver = __commonJS((exports2, module2) => {
+  var { Writable } = require("stream");
   var PerMessageDeflate = require_permessage_deflate();
   var {
     BINARY_TYPES,
@@ -12725,13 +12723,13 @@ var require_receiver = __commonJS((exports, module) => {
       return err;
     }
   }
-  module.exports = Receiver;
+  module2.exports = Receiver;
 });
 
 // node_modules/ws/lib/sender.js
-var require_sender = __commonJS((exports, module) => {
-  var { Duplex } = __require("stream");
-  var { randomFillSync } = __require("crypto");
+var require_sender = __commonJS((exports2, module2) => {
+  var { Duplex } = require("stream");
+  var { randomFillSync } = require("crypto");
   var PerMessageDeflate = require_permessage_deflate();
   var { EMPTY_BUFFER, kWebSocket, NOOP } = require_constants();
   var { isBlob, isValidStatusCode } = require_validation();
@@ -13065,7 +13063,7 @@ var require_sender = __commonJS((exports, module) => {
       }
     }
   }
-  module.exports = Sender;
+  module2.exports = Sender;
   function callCallbacks(sender, err, cb) {
     if (typeof cb === "function")
       cb(err);
@@ -13083,7 +13081,7 @@ var require_sender = __commonJS((exports, module) => {
 });
 
 // node_modules/ws/lib/event-target.js
-var require_event_target = __commonJS((exports, module) => {
+var require_event_target = __commonJS((exports2, module2) => {
   var { kForOnEventAttribute, kListener } = require_constants();
   var kCode = Symbol("kCode");
   var kData = Symbol("kData");
@@ -13217,7 +13215,7 @@ var require_event_target = __commonJS((exports, module) => {
       }
     }
   };
-  module.exports = {
+  module2.exports = {
     CloseEvent,
     ErrorEvent,
     Event,
@@ -13234,7 +13232,7 @@ var require_event_target = __commonJS((exports, module) => {
 });
 
 // node_modules/ws/lib/extension.js
-var require_extension = __commonJS((exports, module) => {
+var require_extension = __commonJS((exports2, module2) => {
   var { tokenChars } = require_validation();
   function push(dest, name, elem) {
     if (dest[name] === undefined)
@@ -13395,19 +13393,19 @@ var require_extension = __commonJS((exports, module) => {
       }).join(", ");
     }).join(", ");
   }
-  module.exports = { format, parse };
+  module2.exports = { format, parse };
 });
 
 // node_modules/ws/lib/websocket.js
-var require_websocket2 = __commonJS((exports, module) => {
-  var EventEmitter = __require("events");
-  var https = __require("https");
-  var http = __require("http");
-  var net = __require("net");
-  var tls = __require("tls");
-  var { randomBytes, createHash } = __require("crypto");
-  var { Duplex, Readable } = __require("stream");
-  var { URL: URL2 } = __require("url");
+var require_websocket2 = __commonJS((exports2, module2) => {
+  var EventEmitter = require("events");
+  var https = require("https");
+  var http = require("http");
+  var net = require("net");
+  var tls = require("tls");
+  var { randomBytes, createHash } = require("crypto");
+  var { Duplex, Readable } = require("stream");
+  var { URL: URL2 } = require("url");
   var PerMessageDeflate = require_permessage_deflate();
   var Receiver = require_receiver();
   var Sender = require_sender();
@@ -13753,7 +13751,7 @@ var require_websocket2 = __commonJS((exports, module) => {
   });
   WebSocket.prototype.addEventListener = addEventListener;
   WebSocket.prototype.removeEventListener = removeEventListener;
-  module.exports = WebSocket;
+  module2.exports = WebSocket;
   function initAsClient(websocket, address, protocols, options) {
     const opts = {
       allowSynchronousEvents: true,
@@ -14158,9 +14156,9 @@ var require_websocket2 = __commonJS((exports, module) => {
 });
 
 // node_modules/ws/lib/stream.js
-var require_stream = __commonJS((exports, module) => {
+var require_stream = __commonJS((exports2, module2) => {
   var WebSocket = require_websocket2();
-  var { Duplex } = __require("stream");
+  var { Duplex } = require("stream");
   function emitClose(stream) {
     stream.emit("close");
   }
@@ -14257,11 +14255,11 @@ var require_stream = __commonJS((exports, module) => {
     duplex.on("error", duplexOnError);
     return duplex;
   }
-  module.exports = createWebSocketStream;
+  module2.exports = createWebSocketStream;
 });
 
 // node_modules/ws/lib/subprotocol.js
-var require_subprotocol = __commonJS((exports, module) => {
+var require_subprotocol = __commonJS((exports2, module2) => {
   var { tokenChars } = require_validation();
   function parse(header) {
     const protocols = new Set;
@@ -14302,15 +14300,15 @@ var require_subprotocol = __commonJS((exports, module) => {
     protocols.add(protocol);
     return protocols;
   }
-  module.exports = { parse };
+  module2.exports = { parse };
 });
 
 // node_modules/ws/lib/websocket-server.js
-var require_websocket_server = __commonJS((exports, module) => {
-  var EventEmitter = __require("events");
-  var http = __require("http");
-  var { Duplex } = __require("stream");
-  var { createHash } = __require("crypto");
+var require_websocket_server = __commonJS((exports2, module2) => {
+  var EventEmitter = require("events");
+  var http = require("http");
+  var { Duplex } = require("stream");
+  var { createHash } = require("crypto");
   var extension = require_extension();
   var PerMessageDeflate = require_permessage_deflate();
   var subprotocol = require_subprotocol();
@@ -14563,7 +14561,7 @@ var require_websocket_server = __commonJS((exports, module) => {
       cb(ws, req);
     }
   }
-  module.exports = WebSocketServer;
+  module2.exports = WebSocketServer;
   function addListeners(server, map) {
     for (const event of Object.keys(map))
       server.on(event, map[event]);
@@ -14607,7 +14605,7 @@ var require_websocket_server = __commonJS((exports, module) => {
 });
 
 // node_modules/ws/index.js
-var require_ws = __commonJS((exports, module) => {
+var require_ws = __commonJS((exports2, module2) => {
   var WebSocket = require_websocket2();
   WebSocket.createWebSocketStream = require_stream();
   WebSocket.Server = require_websocket_server();
@@ -14615,11 +14613,11 @@ var require_ws = __commonJS((exports, module) => {
   WebSocket.Sender = require_sender();
   WebSocket.WebSocket = WebSocket;
   WebSocket.WebSocketServer = WebSocket.Server;
-  module.exports = WebSocket;
+  module2.exports = WebSocket;
 });
 
 // node_modules/object-assign/index.js
-var require_object_assign = __commonJS((exports, module) => {
+var require_object_assign = __commonJS((exports2, module2) => {
   var getOwnPropertySymbols = Object.getOwnPropertySymbols;
   var hasOwnProperty = Object.prototype.hasOwnProperty;
   var propIsEnumerable = Object.prototype.propertyIsEnumerable;
@@ -14661,7 +14659,7 @@ var require_object_assign = __commonJS((exports, module) => {
       return false;
     }
   }
-  module.exports = shouldUseNative() ? Object.assign : function(target, source) {
+  module2.exports = shouldUseNative() ? Object.assign : function(target, source) {
     var from;
     var to = toObject(target);
     var symbols;
@@ -14686,14 +14684,14 @@ var require_object_assign = __commonJS((exports, module) => {
 });
 
 // node_modules/vary/index.js
-var require_vary = __commonJS((exports, module) => {
+var require_vary = __commonJS((exports2, module2) => {
   /*!
    * vary
    * Copyright(c) 2014-2017 Douglas Christopher Wilson
    * MIT Licensed
    */
-  module.exports = vary;
-  module.exports.append = append;
+  module2.exports = vary;
+  module2.exports.append = append;
   var FIELD_NAME_REGEXP = /^[!#$%&'*+\-.^_`|~0-9A-Za-z]+$/;
   function append(header, field) {
     if (typeof header !== "string") {
@@ -14761,7 +14759,7 @@ var require_vary = __commonJS((exports, module) => {
 });
 
 // node_modules/cors/lib/index.js
-var require_lib = __commonJS((exports, module) => {
+var require_lib = __commonJS((exports2, module2) => {
   (function() {
     var assign = require_object_assign();
     var vary = require_vary();
@@ -14961,17 +14959,17 @@ var require_lib = __commonJS((exports, module) => {
         });
       };
     }
-    module.exports = middlewareWrapper;
+    module2.exports = middlewareWrapper;
   })();
 });
 
 // node_modules/engine.io/build/server.js
-var require_server = __commonJS((exports) => {
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.Server = exports.BaseServer = undefined;
+var require_server = __commonJS((exports2) => {
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.Server = exports2.BaseServer = undefined;
   var base64id = require_base64id();
   var transports_1 = require_transports();
-  var events_1 = __require("events");
+  var events_1 = require("events");
   var socket_1 = require_socket();
   var debug_1 = require_src();
   var cookie_1 = require_cookie();
@@ -15271,7 +15269,7 @@ var require_server = __commonJS((exports) => {
       }
     }
   }
-  exports.BaseServer = BaseServer;
+  exports2.BaseServer = BaseServer;
   BaseServer.errors = {
     UNKNOWN_TRANSPORT: 0,
     UNKNOWN_SID: 1,
@@ -15489,7 +15487,7 @@ var require_server = __commonJS((exports) => {
       }
     }
   }
-  exports.Server = Server;
+  exports2.Server = Server;
   function abortRequest(res, errorCode, errorContext) {
     const statusCode = errorCode === Server.errors.FORBIDDEN ? 403 : 400;
     const message = errorContext && errorContext.message ? errorContext.message : Server.errorMessages[errorCode];
@@ -15810,11 +15808,11 @@ var require_server = __commonJS((exports) => {
 });
 
 // node_modules/engine.io/build/transports-uws/polling.js
-var require_polling2 = __commonJS((exports) => {
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.Polling = undefined;
+var require_polling2 = __commonJS((exports2) => {
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.Polling = undefined;
   var transport_1 = require_transport();
-  var zlib_1 = __require("zlib");
+  var zlib_1 = require("zlib");
   var accepts = require_accepts();
   var debug_1 = require_src();
   var debug = (0, debug_1.default)("engine:polling");
@@ -16078,13 +16076,13 @@ var require_polling2 = __commonJS((exports) => {
       return headers;
     }
   }
-  exports.Polling = Polling;
+  exports2.Polling = Polling;
 });
 
 // node_modules/engine.io/build/transports-uws/websocket.js
-var require_websocket3 = __commonJS((exports) => {
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.WebSocket = undefined;
+var require_websocket3 = __commonJS((exports2) => {
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.WebSocket = undefined;
   var transport_1 = require_transport();
   var debug_1 = require_src();
   var debug = (0, debug_1.default)("engine:ws");
@@ -16130,24 +16128,24 @@ var require_websocket3 = __commonJS((exports) => {
       this.socket.end();
     }
   }
-  exports.WebSocket = WebSocket;
+  exports2.WebSocket = WebSocket;
 });
 
 // node_modules/engine.io/build/transports-uws/index.js
-var require_transports_uws = __commonJS((exports) => {
-  Object.defineProperty(exports, "__esModule", { value: true });
+var require_transports_uws = __commonJS((exports2) => {
+  Object.defineProperty(exports2, "__esModule", { value: true });
   var polling_1 = require_polling2();
   var websocket_1 = require_websocket3();
-  exports.default = {
+  exports2.default = {
     polling: polling_1.Polling,
     websocket: websocket_1.WebSocket
   };
 });
 
 // node_modules/engine.io/build/userver.js
-var require_userver = __commonJS((exports) => {
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.uServer = undefined;
+var require_userver = __commonJS((exports2) => {
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.uServer = undefined;
   var debug_1 = require_src();
   var server_1 = require_server();
   var transports_uws_1 = require_transports_uws();
@@ -16301,7 +16299,7 @@ var require_userver = __commonJS((exports) => {
       }));
     }
   }
-  exports.uServer = uServer;
+  exports2.uServer = uServer;
 
   class ResponseWrapper {
     constructor(res) {
@@ -16387,33 +16385,33 @@ var require_userver = __commonJS((exports) => {
 });
 
 // node_modules/engine.io/build/engine.io.js
-var require_engine_io = __commonJS((exports) => {
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.protocol = exports.Transport = exports.Socket = exports.uServer = exports.parser = exports.transports = exports.Server = undefined;
-  exports.listen = listen;
-  exports.attach = attach;
-  var http_1 = __require("http");
+var require_engine_io = __commonJS((exports2) => {
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.protocol = exports2.Transport = exports2.Socket = exports2.uServer = exports2.parser = exports2.transports = exports2.Server = undefined;
+  exports2.listen = listen;
+  exports2.attach = attach;
+  var http_1 = require("http");
   var server_1 = require_server();
-  Object.defineProperty(exports, "Server", { enumerable: true, get: function() {
+  Object.defineProperty(exports2, "Server", { enumerable: true, get: function() {
     return server_1.Server;
   } });
   var index_1 = require_transports();
-  exports.transports = index_1.default;
+  exports2.transports = index_1.default;
   var parser = require_cjs();
-  exports.parser = parser;
+  exports2.parser = parser;
   var userver_1 = require_userver();
-  Object.defineProperty(exports, "uServer", { enumerable: true, get: function() {
+  Object.defineProperty(exports2, "uServer", { enumerable: true, get: function() {
     return userver_1.uServer;
   } });
   var socket_1 = require_socket();
-  Object.defineProperty(exports, "Socket", { enumerable: true, get: function() {
+  Object.defineProperty(exports2, "Socket", { enumerable: true, get: function() {
     return socket_1.Socket;
   } });
   var transport_1 = require_transport();
-  Object.defineProperty(exports, "Transport", { enumerable: true, get: function() {
+  Object.defineProperty(exports2, "Transport", { enumerable: true, get: function() {
     return transport_1.Transport;
   } });
-  exports.protocol = parser.protocol;
+  exports2.protocol = parser.protocol;
   function listen(port, options, listenCallback) {
     if (typeof options === "function") {
       listenCallback = options;
@@ -16436,8 +16434,8 @@ var require_engine_io = __commonJS((exports) => {
 });
 
 // node_modules/@socket.io/component-emitter/lib/cjs/index.js
-var require_cjs2 = __commonJS((exports) => {
-  exports.Emitter = Emitter;
+var require_cjs2 = __commonJS((exports2) => {
+  exports2.Emitter = Emitter;
   function Emitter(obj) {
     if (obj)
       return mixin(obj);
@@ -16513,10 +16511,10 @@ var require_cjs2 = __commonJS((exports) => {
 });
 
 // node_modules/socket.io-parser/build/cjs/is-binary.js
-var require_is_binary = __commonJS((exports) => {
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.isBinary = isBinary;
-  exports.hasBinary = hasBinary;
+var require_is_binary = __commonJS((exports2) => {
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.isBinary = isBinary;
+  exports2.hasBinary = hasBinary;
   var withNativeArrayBuffer = typeof ArrayBuffer === "function";
   var isView = (obj) => {
     return typeof ArrayBuffer.isView === "function" ? ArrayBuffer.isView(obj) : obj.buffer instanceof ArrayBuffer;
@@ -16555,10 +16553,10 @@ var require_is_binary = __commonJS((exports) => {
 });
 
 // node_modules/socket.io-parser/build/cjs/binary.js
-var require_binary = __commonJS((exports) => {
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.deconstructPacket = deconstructPacket;
-  exports.reconstructPacket = reconstructPacket;
+var require_binary = __commonJS((exports2) => {
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.deconstructPacket = deconstructPacket;
+  exports2.reconstructPacket = reconstructPacket;
   var is_binary_js_1 = require_is_binary();
   function deconstructPacket(packet) {
     const buffers = [];
@@ -16623,10 +16621,10 @@ var require_binary = __commonJS((exports) => {
 });
 
 // node_modules/socket.io-parser/build/cjs/index.js
-var require_cjs3 = __commonJS((exports) => {
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.Decoder = exports.Encoder = exports.PacketType = exports.protocol = undefined;
-  exports.isPacketValid = isPacketValid;
+var require_cjs3 = __commonJS((exports2) => {
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.Decoder = exports2.Encoder = exports2.PacketType = exports2.protocol = undefined;
+  exports2.isPacketValid = isPacketValid;
   var component_emitter_1 = require_cjs2();
   var binary_js_1 = require_binary();
   var is_binary_js_1 = require_is_binary();
@@ -16640,7 +16638,7 @@ var require_cjs3 = __commonJS((exports) => {
     "newListener",
     "removeListener"
   ];
-  exports.protocol = 5;
+  exports2.protocol = 5;
   var PacketType;
   (function(PacketType2) {
     PacketType2[PacketType2["CONNECT"] = 0] = "CONNECT";
@@ -16650,7 +16648,7 @@ var require_cjs3 = __commonJS((exports) => {
     PacketType2[PacketType2["CONNECT_ERROR"] = 4] = "CONNECT_ERROR";
     PacketType2[PacketType2["BINARY_EVENT"] = 5] = "BINARY_EVENT";
     PacketType2[PacketType2["BINARY_ACK"] = 6] = "BINARY_ACK";
-  })(PacketType || (exports.PacketType = PacketType = {}));
+  })(PacketType || (exports2.PacketType = PacketType = {}));
 
   class Encoder {
     constructor(replacer) {
@@ -16695,7 +16693,7 @@ var require_cjs3 = __commonJS((exports) => {
       return buffers;
     }
   }
-  exports.Encoder = Encoder;
+  exports2.Encoder = Encoder;
 
   class Decoder extends component_emitter_1.Emitter {
     constructor(reviver) {
@@ -16818,7 +16816,7 @@ var require_cjs3 = __commonJS((exports) => {
       }
     }
   }
-  exports.Decoder = Decoder;
+  exports2.Decoder = Decoder;
 
   class BinaryReconstructor {
     constructor(packet) {
@@ -16874,12 +16872,12 @@ var require_cjs3 = __commonJS((exports) => {
 });
 
 // node_modules/socket.io/dist/client.js
-var require_client = __commonJS((exports) => {
-  var __importDefault = exports && exports.__importDefault || function(mod) {
+var require_client = __commonJS((exports2) => {
+  var __importDefault = exports2 && exports2.__importDefault || function(mod) {
     return mod && mod.__esModule ? mod : { default: mod };
   };
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.Client = undefined;
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.Client = undefined;
   var socket_io_parser_1 = require_cjs3();
   var debug_1 = __importDefault(require_src());
   var debug = (0, debug_1.default)("socket.io:client");
@@ -17049,14 +17047,14 @@ var require_client = __commonJS((exports) => {
       }
     }
   }
-  exports.Client = Client;
+  exports2.Client = Client;
 });
 
 // node_modules/socket.io/dist/typed-events.js
-var require_typed_events = __commonJS((exports) => {
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.StrictEventEmitter = undefined;
-  var events_1 = __require("events");
+var require_typed_events = __commonJS((exports2) => {
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.StrictEventEmitter = undefined;
+  var events_1 = require("events");
 
   class StrictEventEmitter extends events_1.EventEmitter {
     on(ev, listener) {
@@ -17078,14 +17076,14 @@ var require_typed_events = __commonJS((exports) => {
       return super.listeners(event);
     }
   }
-  exports.StrictEventEmitter = StrictEventEmitter;
+  exports2.StrictEventEmitter = StrictEventEmitter;
 });
 
 // node_modules/socket.io/dist/socket-types.js
-var require_socket_types = __commonJS((exports) => {
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.RESERVED_EVENTS = undefined;
-  exports.RESERVED_EVENTS = new Set([
+var require_socket_types = __commonJS((exports2) => {
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.RESERVED_EVENTS = undefined;
+  exports2.RESERVED_EVENTS = new Set([
     "connect",
     "connect_error",
     "disconnect",
@@ -17096,9 +17094,9 @@ var require_socket_types = __commonJS((exports) => {
 });
 
 // node_modules/socket.io/dist/broadcast-operator.js
-var require_broadcast_operator = __commonJS((exports) => {
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.RemoteSocket = exports.BroadcastOperator = undefined;
+var require_broadcast_operator = __commonJS((exports2) => {
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.RemoteSocket = exports2.BroadcastOperator = undefined;
   var socket_types_1 = require_socket_types();
   var socket_io_parser_1 = require_cjs3();
 
@@ -17260,7 +17258,7 @@ var require_broadcast_operator = __commonJS((exports) => {
       }, close);
     }
   }
-  exports.BroadcastOperator = BroadcastOperator;
+  exports2.BroadcastOperator = BroadcastOperator;
 
   class RemoteSocket {
     constructor(adapter, details) {
@@ -17289,16 +17287,16 @@ var require_broadcast_operator = __commonJS((exports) => {
       return this;
     }
   }
-  exports.RemoteSocket = RemoteSocket;
+  exports2.RemoteSocket = RemoteSocket;
 });
 
 // node_modules/socket.io/dist/socket.js
-var require_socket2 = __commonJS((exports) => {
-  var __importDefault = exports && exports.__importDefault || function(mod) {
+var require_socket2 = __commonJS((exports2) => {
+  var __importDefault = exports2 && exports2.__importDefault || function(mod) {
     return mod && mod.__esModule ? mod : { default: mod };
   };
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.Socket = undefined;
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.Socket = undefined;
   var socket_io_parser_1 = require_cjs3();
   var debug_1 = __importDefault(require_src());
   var typed_events_1 = require_typed_events();
@@ -17717,22 +17715,22 @@ var require_socket2 = __commonJS((exports) => {
       return new broadcast_operator_1.BroadcastOperator(this.adapter, new Set, new Set([this.id]), flags);
     }
   }
-  exports.Socket = Socket;
+  exports2.Socket = Socket;
 });
 
 // node_modules/socket.io/dist/namespace.js
-var require_namespace = __commonJS((exports) => {
-  var __importDefault = exports && exports.__importDefault || function(mod) {
+var require_namespace = __commonJS((exports2) => {
+  var __importDefault = exports2 && exports2.__importDefault || function(mod) {
     return mod && mod.__esModule ? mod : { default: mod };
   };
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.Namespace = exports.RESERVED_EVENTS = undefined;
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.Namespace = exports2.RESERVED_EVENTS = undefined;
   var socket_1 = require_socket2();
   var typed_events_1 = require_typed_events();
   var debug_1 = __importDefault(require_src());
   var broadcast_operator_1 = require_broadcast_operator();
   var debug = (0, debug_1.default)("socket.io:namespace");
-  exports.RESERVED_EVENTS = new Set(["connect", "connection", "new_namespace"]);
+  exports2.RESERVED_EVENTS = new Set(["connect", "connection", "new_namespace"]);
 
   class Namespace extends typed_events_1.StrictEventEmitter {
     constructor(server, name) {
@@ -17851,7 +17849,7 @@ var require_namespace = __commonJS((exports) => {
       return this;
     }
     serverSideEmit(ev, ...args) {
-      if (exports.RESERVED_EVENTS.has(ev)) {
+      if (exports2.RESERVED_EVENTS.has(ev)) {
         throw new Error(`"${String(ev)}" is a reserved event name`);
       }
       args.unshift(ev);
@@ -17902,15 +17900,15 @@ var require_namespace = __commonJS((exports) => {
       return new broadcast_operator_1.BroadcastOperator(this.adapter).disconnectSockets(close);
     }
   }
-  exports.Namespace = Namespace;
+  exports2.Namespace = Namespace;
 });
 
 // node_modules/socket.io-adapter/dist/contrib/yeast.js
-var require_yeast = __commonJS((exports) => {
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.encode = encode;
-  exports.decode = decode;
-  exports.yeast = yeast;
+var require_yeast = __commonJS((exports2) => {
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.encode = encode;
+  exports2.decode = decode;
+  exports2.yeast = yeast;
   var alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_".split("");
   var length = 64;
   var map = {};
@@ -17943,11 +17941,11 @@ var require_yeast = __commonJS((exports) => {
 });
 
 // node_modules/socket.io-adapter/dist/in-memory-adapter.js
-var require_in_memory_adapter = __commonJS((exports) => {
+var require_in_memory_adapter = __commonJS((exports2) => {
   var _a;
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.SessionAwareAdapter = exports.Adapter = undefined;
-  var events_1 = __require("events");
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.SessionAwareAdapter = exports2.Adapter = undefined;
+  var events_1 = require("events");
   var yeast_1 = require_yeast();
   var WebSocket = require_ws();
   var canPreComputeFrame = typeof ((_a = WebSocket === null || WebSocket === undefined ? undefined : WebSocket.Sender) === null || _a === undefined ? undefined : _a.frame) === "function";
@@ -18138,7 +18136,7 @@ var require_in_memory_adapter = __commonJS((exports) => {
       return null;
     }
   }
-  exports.Adapter = Adapter;
+  exports2.Adapter = Adapter;
 
   class SessionAwareAdapter extends Adapter {
     constructor(nsp) {
@@ -18210,7 +18208,7 @@ var require_in_memory_adapter = __commonJS((exports) => {
       super.broadcast(packet, opts);
     }
   }
-  exports.SessionAwareAdapter = SessionAwareAdapter;
+  exports2.SessionAwareAdapter = SessionAwareAdapter;
   function shouldIncludePacket(sessionRooms, opts) {
     const included = opts.rooms.size === 0 || sessionRooms.some((room) => opts.rooms.has(room));
     const notExcluded = sessionRooms.every((room) => !opts.except.has(room));
@@ -18219,8 +18217,8 @@ var require_in_memory_adapter = __commonJS((exports) => {
 });
 
 // node_modules/socket.io-adapter/dist/cluster-adapter.js
-var require_cluster_adapter = __commonJS((exports) => {
-  var __rest = exports && exports.__rest || function(s, e) {
+var require_cluster_adapter = __commonJS((exports2) => {
+  var __rest = exports2 && exports2.__rest || function(s, e) {
     var t = {};
     for (var p in s)
       if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
@@ -18232,11 +18230,11 @@ var require_cluster_adapter = __commonJS((exports) => {
       }
     return t;
   };
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.ClusterAdapterWithHeartbeat = exports.ClusterAdapter = exports.MessageType = undefined;
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.ClusterAdapterWithHeartbeat = exports2.ClusterAdapter = exports2.MessageType = undefined;
   var in_memory_adapter_1 = require_in_memory_adapter();
   var debug_1 = require_src();
-  var crypto_1 = __require("crypto");
+  var crypto_1 = require("crypto");
   var debug = (0, debug_1.debug)("socket.io-adapter");
   var EMITTER_UID = "emitter";
   var DEFAULT_TIMEOUT = 5000;
@@ -18258,7 +18256,7 @@ var require_cluster_adapter = __commonJS((exports) => {
     MessageType2[MessageType2["BROADCAST_CLIENT_COUNT"] = 11] = "BROADCAST_CLIENT_COUNT";
     MessageType2[MessageType2["BROADCAST_ACK"] = 12] = "BROADCAST_ACK";
     MessageType2[MessageType2["ADAPTER_CLOSE"] = 13] = "ADAPTER_CLOSE";
-  })(MessageType || (exports.MessageType = MessageType = {}));
+  })(MessageType || (exports2.MessageType = MessageType = {}));
   function encodeOptions(opts) {
     return {
       rooms: [...opts.rooms],
@@ -18636,7 +18634,7 @@ var require_cluster_adapter = __commonJS((exports) => {
       });
     }
   }
-  exports.ClusterAdapter = ClusterAdapter;
+  exports2.ClusterAdapter = ClusterAdapter;
 
   class ClusterAdapterWithHeartbeat extends ClusterAdapter {
     constructor(nsp, opts) {
@@ -18846,39 +18844,39 @@ var require_cluster_adapter = __commonJS((exports) => {
       this.nodesMap.delete(uid);
     }
   }
-  exports.ClusterAdapterWithHeartbeat = ClusterAdapterWithHeartbeat;
+  exports2.ClusterAdapterWithHeartbeat = ClusterAdapterWithHeartbeat;
 });
 
 // node_modules/socket.io-adapter/dist/index.js
-var require_dist = __commonJS((exports) => {
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.MessageType = exports.ClusterAdapterWithHeartbeat = exports.ClusterAdapter = exports.SessionAwareAdapter = exports.Adapter = undefined;
+var require_dist = __commonJS((exports2) => {
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.MessageType = exports2.ClusterAdapterWithHeartbeat = exports2.ClusterAdapter = exports2.SessionAwareAdapter = exports2.Adapter = undefined;
   var in_memory_adapter_1 = require_in_memory_adapter();
-  Object.defineProperty(exports, "Adapter", { enumerable: true, get: function() {
+  Object.defineProperty(exports2, "Adapter", { enumerable: true, get: function() {
     return in_memory_adapter_1.Adapter;
   } });
-  Object.defineProperty(exports, "SessionAwareAdapter", { enumerable: true, get: function() {
+  Object.defineProperty(exports2, "SessionAwareAdapter", { enumerable: true, get: function() {
     return in_memory_adapter_1.SessionAwareAdapter;
   } });
   var cluster_adapter_1 = require_cluster_adapter();
-  Object.defineProperty(exports, "ClusterAdapter", { enumerable: true, get: function() {
+  Object.defineProperty(exports2, "ClusterAdapter", { enumerable: true, get: function() {
     return cluster_adapter_1.ClusterAdapter;
   } });
-  Object.defineProperty(exports, "ClusterAdapterWithHeartbeat", { enumerable: true, get: function() {
+  Object.defineProperty(exports2, "ClusterAdapterWithHeartbeat", { enumerable: true, get: function() {
     return cluster_adapter_1.ClusterAdapterWithHeartbeat;
   } });
-  Object.defineProperty(exports, "MessageType", { enumerable: true, get: function() {
+  Object.defineProperty(exports2, "MessageType", { enumerable: true, get: function() {
     return cluster_adapter_1.MessageType;
   } });
 });
 
 // node_modules/socket.io/dist/parent-namespace.js
-var require_parent_namespace = __commonJS((exports) => {
-  var __importDefault = exports && exports.__importDefault || function(mod) {
+var require_parent_namespace = __commonJS((exports2) => {
+  var __importDefault = exports2 && exports2.__importDefault || function(mod) {
     return mod && mod.__esModule ? mod : { default: mod };
   };
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.ParentNamespace = undefined;
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.ParentNamespace = undefined;
   var namespace_1 = require_namespace();
   var socket_io_adapter_1 = require_dist();
   var debug_1 = __importDefault(require_src());
@@ -18925,7 +18923,7 @@ var require_parent_namespace = __commonJS((exports) => {
       throw new Error("fetchSockets() is not supported on parent namespaces");
     }
   }
-  exports.ParentNamespace = ParentNamespace;
+  exports2.ParentNamespace = ParentNamespace;
   ParentNamespace.count = 0;
 
   class ParentBroadcastAdapter extends socket_io_adapter_1.Adapter {
@@ -18938,16 +18936,16 @@ var require_parent_namespace = __commonJS((exports) => {
 });
 
 // node_modules/socket.io/dist/uws.js
-var require_uws = __commonJS((exports) => {
-  var __importDefault = exports && exports.__importDefault || function(mod) {
+var require_uws = __commonJS((exports2) => {
+  var __importDefault = exports2 && exports2.__importDefault || function(mod) {
     return mod && mod.__esModule ? mod : { default: mod };
   };
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.patchAdapter = patchAdapter;
-  exports.restoreAdapter = restoreAdapter;
-  exports.serveFile = serveFile;
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.patchAdapter = patchAdapter;
+  exports2.restoreAdapter = restoreAdapter;
+  exports2.serveFile = serveFile;
   var socket_io_adapter_1 = require_dist();
-  var fs_1 = __require("fs");
+  var fs_1 = require("fs");
   var debug_1 = __importDefault(require_src());
   var debug = (0, debug_1.default)("socket.io:adapter-uws");
   var SEPARATOR = "\x1F";
@@ -19064,8 +19062,8 @@ var require_uws = __commonJS((exports) => {
 });
 
 // node_modules/socket.io/package.json
-var require_package = __commonJS((exports, module) => {
-  module.exports = {
+var require_package = __commonJS((exports2, module2) => {
+  module2.exports = {
     name: "socket.io",
     version: "4.8.3",
     description: "node.js realtime framework server",
@@ -19156,9 +19154,9 @@ var require_package = __commonJS((exports, module) => {
 });
 
 // node_modules/socket.io/dist/index.js
-var require_dist2 = __commonJS((exports, module) => {
+var require_dist2 = __commonJS((exports2, module2) => {
   var __dirname = "/Users/hmamin/idp/ipa-scrabble/node_modules/socket.io/dist";
-  var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+  var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
     if (k2 === undefined)
       k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -19173,12 +19171,12 @@ var require_dist2 = __commonJS((exports, module) => {
       k2 = k;
     o[k2] = m[k];
   });
-  var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+  var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
     Object.defineProperty(o, "default", { enumerable: true, value: v });
   } : function(o, v) {
     o["default"] = v;
   });
-  var __importStar = exports && exports.__importStar || function(mod) {
+  var __importStar = exports2 && exports2.__importStar || function(mod) {
     if (mod && mod.__esModule)
       return mod;
     var result = {};
@@ -19190,22 +19188,22 @@ var require_dist2 = __commonJS((exports, module) => {
     __setModuleDefault(result, mod);
     return result;
   };
-  var __importDefault = exports && exports.__importDefault || function(mod) {
+  var __importDefault = exports2 && exports2.__importDefault || function(mod) {
     return mod && mod.__esModule ? mod : { default: mod };
   };
-  Object.defineProperty(exports, "__esModule", { value: true });
-  exports.Namespace = exports.Socket = exports.Server = undefined;
-  var http_1 = __importDefault(__require("http"));
-  var fs_1 = __require("fs");
-  var zlib_1 = __require("zlib");
+  Object.defineProperty(exports2, "__esModule", { value: true });
+  exports2.Namespace = exports2.Socket = exports2.Server = undefined;
+  var http_1 = __importDefault(require("http"));
+  var fs_1 = require("fs");
+  var zlib_1 = require("zlib");
   var accepts = require_accepts();
-  var stream_1 = __require("stream");
-  var path = __require("path");
+  var stream_1 = require("stream");
+  var path = require("path");
   var engine_io_1 = require_engine_io();
   var client_1 = require_client();
-  var events_1 = __require("events");
+  var events_1 = require("events");
   var namespace_1 = require_namespace();
-  Object.defineProperty(exports, "Namespace", { enumerable: true, get: function() {
+  Object.defineProperty(exports2, "Namespace", { enumerable: true, get: function() {
     return namespace_1.Namespace;
   } });
   var parent_namespace_1 = require_parent_namespace();
@@ -19213,7 +19211,7 @@ var require_dist2 = __commonJS((exports, module) => {
   var parser = __importStar(require_cjs3());
   var debug_1 = __importDefault(require_src());
   var socket_1 = require_socket2();
-  Object.defineProperty(exports, "Socket", { enumerable: true, get: function() {
+  Object.defineProperty(exports2, "Socket", { enumerable: true, get: function() {
     return socket_1.Socket;
   } });
   var typed_events_1 = require_typed_events();
@@ -19576,7 +19574,7 @@ var require_dist2 = __commonJS((exports, module) => {
       return this.sockets.disconnectSockets(close);
     }
   }
-  exports.Server = Server;
+  exports2.Server = Server;
   var emitterMethods = Object.keys(events_1.EventEmitter.prototype).filter(function(key) {
     return typeof events_1.EventEmitter.prototype[key] === "function";
   });
@@ -19585,21 +19583,21 @@ var require_dist2 = __commonJS((exports, module) => {
       return this.sockets[fn].apply(this.sockets, arguments);
     };
   });
-  module.exports = (srv, opts) => new Server(srv, opts);
-  module.exports.Server = Server;
-  module.exports.Namespace = namespace_1.Namespace;
-  module.exports.Socket = socket_1.Socket;
+  module2.exports = (srv, opts) => new Server(srv, opts);
+  module2.exports.Server = Server;
+  module2.exports.Namespace = namespace_1.Namespace;
+  module2.exports.Socket = socket_1.Socket;
 });
 
 // mini-services/scrabble-game-service/index.ts
-import { createServer } from "http";
+var import_http = require("http");
 
 // node_modules/socket.io/wrapper.mjs
 var import_dist = __toESM(require_dist2(), 1);
 var { Server, Namespace, Socket } = import_dist.default;
 
 // mini-services/scrabble-game-service/index.ts
-var httpServer = createServer();
+var httpServer = import_http.createServer();
 var io2 = new Server(httpServer, {
   path: "/",
   cors: {
