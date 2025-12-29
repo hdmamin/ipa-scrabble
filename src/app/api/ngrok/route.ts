@@ -123,7 +123,7 @@ export async function POST(request: Request) {
       });
 
       // Timeout after 10 seconds
-      setTimeout(() => reject(new Error('Ngrok startup timeout')), 10000);
+      setTimeout(() => reject(new Error('Ngrok startup timeout - this may be due to VPN/firewall blocking the connection. Try disconnecting VPN or check firewall settings.')), 10000);
     });
     console.log('Ngrok tunnel URL:', url);
 
@@ -137,8 +137,20 @@ export async function POST(request: Request) {
     console.error('Error starting ngrok:', error);
     console.error('Error body:', error.body);
     console.error('Error response:', error.response?.statusCode, error.response?.statusMessage);
+
+    let errorMessage = error.message;
+
+    // Provide more helpful error messages for common issues
+    if (error.message.includes('timeout') || error.message.includes('Ngrok startup timeout')) {
+      errorMessage = 'Ngrok tunnel failed to start - this is often caused by VPN or firewall blocking the connection. Try disconnecting your VPN or checking firewall settings.';
+    } else if (error.message.includes('ENOTFOUND') || error.message.includes('ECONNREFUSED')) {
+      errorMessage = 'Network connection failed - check your internet connection and firewall settings.';
+    } else if (error.message.includes('authtoken')) {
+      errorMessage = 'Invalid ngrok authtoken - please check your authtoken is correct.';
+    }
+
     return NextResponse.json(
-      { error: 'Failed to start ngrok tunnel', details: error.message, body: error.body },
+      { error: 'Failed to start ngrok tunnel', details: errorMessage, body: error.body },
       { status: 500 }
     );
   }
