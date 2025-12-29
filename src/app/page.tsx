@@ -89,7 +89,8 @@ const LobbyScreen: React.FC<LobbyScreenProps> = ({
         body: JSON.stringify({ authtoken: token })
       });
       const data = await response.json();
-      
+      console.log('Ngrok API response:', data);
+
       if (data.error) {
         toast.error(data.details || 'Failed to start ngrok');
         setIsStartingNgrok(false);
@@ -99,7 +100,14 @@ const LobbyScreen: React.FC<LobbyScreenProps> = ({
       const code = generateInviteCode();
       setMyInviteCode(code);
       setIsHosting(true);
-      setMyInviteLink(data.url);
+
+      if (data.url) {
+        setMyInviteLink(data.url);
+        console.log('Share link set to:', data.url);
+      } else {
+        console.error('No URL in ngrok response:', data);
+        toast.error('Ngrok tunnel created but no URL returned');
+      }
       
       // Notify user about ngrok
       if (!data.cached) {
@@ -148,19 +156,26 @@ const LobbyScreen: React.FC<LobbyScreenProps> = ({
     const shareLink = myInviteLink
       ? `http://localhost:3000/?invite=${myInviteCode}&server=${encodeURIComponent(myInviteLink)}`
       : myInviteCode;
-      
-    if (navigator.share) {
+
+    console.log('Share button clicked, navigator.share available:', !!navigator.share);
+    console.log('Share link:', shareLink);
+
+    if (navigator.share && typeof navigator.share === 'function') {
       try {
+        console.log('Attempting to use Web Share API...');
         await navigator.share({
           title: 'IPA Scrabble',
           text: `Join my IPA Scrabble game! Invite code: ${myInviteCode}`,
           url: shareLink
         });
+        console.log('Web Share API succeeded');
       } catch (error) {
+        console.log('Web Share API failed or cancelled:', error);
         // User cancelled or error, fallback to copy
         copyInviteLink();
       }
     } else {
+      console.log('Web Share API not available, falling back to copy');
       copyInviteLink();
     }
   };

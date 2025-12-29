@@ -27,12 +27,24 @@ export async function POST(request: Request) {
       });
     }
 
-    // Kill any existing tunnels first
+    // Kill any existing ngrok processes
     try {
-      await ngrok.disconnect();
-      await ngrok.kill();
+      console.log('Killing existing ngrok processes...');
+      const { spawn } = require('child_process');
+
+      // Kill ngrok processes by name
+      const killProcess = spawn('pkill', ['-f', 'ngrok'], { stdio: 'ignore' });
+      await new Promise((resolve) => {
+        killProcess.on('close', () => resolve(void 0));
+        setTimeout(() => resolve(void 0), 2000); // timeout after 2s
+      });
+
+      console.log('Existing ngrok processes killed');
+
+      // Clear cached URL since we killed the process
+      cachedNgrokUrl = null;
     } catch (e) {
-      // Ignore errors if no tunnel exists
+      console.log('No existing ngrok processes found');
     }
 
     // Ensure ngrok config directory exists (macOS: ~/Library/Application Support/ngrok)
@@ -93,9 +105,10 @@ export async function POST(request: Request) {
         output += data.toString();
         console.log('[Ngrok stdout]', data.toString().trim());
 
-        // Look for the tunnel URL in the output
-        const urlMatch = output.match(/url=([^\s]+)/);
+        // Look for the tunnel URL in the output (ngrok format: url=https://...)
+        const urlMatch = output.match(/url=(https:\/\/[^\s]+)/);
         if (urlMatch) {
+          console.log('Found ngrok URL:', urlMatch[1]);
           resolve(urlMatch[1]);
         }
       });
