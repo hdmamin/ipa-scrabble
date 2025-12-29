@@ -60,9 +60,9 @@ export async function POST(request: Request) {
     let ngrokBinaryPath: string;
 
     if (isPackaged) {
-      // In packaged app, get the current path and replace .next/standalone with just ngrok-binary
-      const currentPath = process.cwd(); // should be something like .../Resources/.next/standalone
-      const resourcesPath = currentPath.replace('/.next/standalone', '');
+      // In packaged app, go up from .../Resources/.next/standalone to .../Resources
+      const currentPath = process.cwd(); // something like .../Resources/.next/standalone
+      const resourcesPath = join(currentPath, '..', '..'); // go up 2 levels: .next -> Resources
       ngrokBinaryPath = join(resourcesPath, 'ngrok-binary');
     } else {
       // In development, use node_modules
@@ -73,10 +73,41 @@ export async function POST(request: Request) {
     console.log('Ngrok binary path:', ngrokBinaryPath);
     console.log('Binary exists:', existsSync(ngrokBinaryPath));
 
-    const url = await ngrok.connect({
-      addr: 3004,
-      authtoken,
-      binPath: () => ngrokBinaryPath
+    // Instead of using ngrok package's spawn, do it manually
+    const { spawn } = require('child_process');
+
+    const ngrokArgs = ['http', '3004', '--authtoken', authtoken, '--log', 'stdout'];
+    console.log('Spawning ngrok:', ngrokBinaryPath, ngrokArgs);
+
+    const ngrokProcess = spawn(ngrokBinaryPath, ngrokArgs, {
+      stdio: ['ignore', 'pipe', 'pipe']
+    });
+
+    const url = await new Promise((resolve, reject) => {
+      let output = '';
+
+      ngrokProcess.stdout.on('data', (data) => {
+        output += data.toString();
+        console.log('[Ngrok stdout]', data.toString().trim());
+
+        // Look for the tunnel URL in the output
+        const urlMatch = output.match(/url=([^\s]+)/);
+        if (urlMatch) {
+          resolve(urlMatch[1]);
+        }
+      });
+
+      ngrokProcess.stderr.on('data', (data) => {
+        console.log('[Ngrok stderr]', data.toString().trim());
+      });
+
+      ngrokProcess.on('error', (error) => {
+        console.error('[Ngrok process error]', error);
+        reject(error);
+      });
+
+      // Timeout after 10 seconds
+      setTimeout(() => reject(new Error('Ngrok startup timeout')), 10000);
     });
     console.log('Ngrok tunnel URL:', url);
 
