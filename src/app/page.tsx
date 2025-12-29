@@ -488,34 +488,34 @@ export default function IPA_ScrabbleGame() {
 
     socketInstance.on('room-created', (data: { inviteCode: string; playerId: string; gameState: GameState }) => {
       console.log('Room created:', data);
-      setGameState(data.gameState);
+      setGameState(() => data.gameState);  // Functional update
       setCurrentInviteCode(data.inviteCode);
     });
 
     socketInstance.on('room-joined', (data: { inviteCode: string; playerId: string; gameState: GameState }) => {
       console.log('Room joined:', data);
-      setGameState(data.gameState);
+      setGameState(() => data.gameState);  // Functional update
       setCurrentInviteCode(data.inviteCode);
-      setGamePhase('playing');
+      setGamePhase(() => 'playing');       // Functional update
     });
 
     socketInstance.on('game-started', (data: { gameState: GameState }) => {
       console.log('Game started:', data);
-      setGameState(data.gameState);
-      setGamePhase('playing');
+      setGameState(() => data.gameState);  // Functional update
+      setGamePhase(() => 'playing');       // Functional update
       toast.success('Game started! Your turn to play.');
     });
 
     socketInstance.on('game-updated', (data: { gameState: GameState }) => {
       console.log('Game updated:', data);
-      setGameState(data.gameState);
-      setPendingTiles([]);
+      setGameState(() => data.gameState);  // Functional update
+      setPendingTiles(() => []);           // Functional update
     });
 
     socketInstance.on('game-over', (data: { winner: Player; gameState: GameState }) => {
       console.log('Game over:', data);
-      setGameState(data.gameState);
-      setGamePhase('game-over');
+      setGameState(() => data.gameState);  // Functional update
+      setGamePhase(() => 'game-over');     // Functional update
     });
 
     socketInstance.on('player-disconnected', (data: { playerId: string }) => {
