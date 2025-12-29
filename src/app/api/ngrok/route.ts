@@ -63,7 +63,10 @@ export async function POST(request: Request) {
       // In packaged app, go up from .../Resources/.next/standalone to .../Resources
       const currentPath = process.cwd(); // something like .../Resources/.next/standalone
       const resourcesPath = join(currentPath, '..', '..'); // go up 2 levels: .next -> Resources
-      ngrokBinaryPath = join(resourcesPath, 'ngrok-binary');
+
+      // Select the right binary based on architecture
+      const binaryName = process.arch === 'x64' ? 'ngrok-x64' : 'ngrok-arm64';
+      ngrokBinaryPath = join(resourcesPath, binaryName);
     } else {
       // In development, use node_modules
       ngrokBinaryPath = join(process.cwd(), 'node_modules', 'ngrok', 'bin', 'ngrok');
