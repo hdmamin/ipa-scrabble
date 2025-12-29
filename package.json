@@ -1,6 +1,6 @@
 {
   "name": "ipa-scrabble",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "IPA Scrabble - Play Scrabble with the International Phonetic Alphabet",
   "main": "dist/electron/main.js",
   "private": true,
@@ -121,22 +121,30 @@
       {
         "from": ".next/standalone",
         "to": ".next/standalone",
-        "filter": ["**/*"]
+        "filter": [
+          "**/*"
+        ]
       },
       {
         "from": ".next/static",
         "to": ".next/standalone/.next/static",
-        "filter": ["**/*"]
+        "filter": [
+          "**/*"
+        ]
       },
       {
         "from": "public",
         "to": ".next/standalone/public",
-        "filter": ["**/*"]
+        "filter": [
+          "**/*"
+        ]
       },
       {
         "from": "mini-services",
         "to": "mini-services",
-        "filter": ["**/*"]
+        "filter": [
+          "**/*"
+        ]
       },
       {
         "from": "/tmp/ngrok-binaries/ngrok-x64",
