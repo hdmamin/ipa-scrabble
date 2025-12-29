@@ -2,6 +2,15 @@
 
 Play Scrabble with the International Phonetic Alphabet.
 
+## System Requirements
+
+- **macOS 11.0 (Big Sur) or later**
+- Intel or Apple Silicon Mac (M1/M2/M3)
+- Internet connection for multiplayer games
+- Ngrok account (free) for hosting multiplayer games
+
+**Note**: macOS 10.13 and earlier are not supported due to Electron and ngrok binary requirements.
+
 ## Setup
 
 ```bash
@@ -15,6 +24,13 @@ To host games for remote players, you need a free ngrok account:
 1. Sign up at https://dashboard.ngrok.com (free)
 2. Copy your authtoken from the dashboard
 3. When you click "Host a Game" in the app, you'll be prompted to paste your authtoken
+
+#### Troubleshooting Multiplayer
+
+If ngrok fails to start:
+- **VPN issues**: Disconnect your VPN temporarily - VPNs often block ngrok tunnels
+- **Firewall**: Check your firewall settings allow ngrok connections
+- **Network**: Ensure you have a stable internet connection
 
 ## Running
 
