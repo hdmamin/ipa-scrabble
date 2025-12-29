@@ -104,6 +104,7 @@ const LobbyScreen: React.FC<LobbyScreenProps> = ({
       if (data.url) {
         setMyInviteLink(data.url);
         console.log('Share link set to:', data.url);
+        console.log('Share button should now be visible');
       } else {
         console.error('No URL in ngrok response:', data);
         toast.error('Ngrok tunnel created but no URL returned');
@@ -355,9 +356,13 @@ const LobbyScreen: React.FC<LobbyScreenProps> = ({
 
               {myInviteLink && (
                 <div className="space-y-2">
+                  {console.log('Rendering share button, myInviteLink:', myInviteLink)}
                   <Label className="text-sm font-semibold text-blue-600">Share Link (Click to Share)</Label>
                   <Button
-                    onClick={shareInviteLink}
+                    onClick={() => {
+                      console.log('SHARE BUTTON CLICKED - basic handler working');
+                      shareInviteLink();
+                    }}
                     variant="default"
                     className="w-full"
                     size="lg"
