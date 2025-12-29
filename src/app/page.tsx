@@ -164,19 +164,22 @@ const LobbyScreen: React.FC<LobbyScreenProps> = ({
     if (navigator.share && typeof navigator.share === 'function') {
       try {
         console.log('Attempting to use Web Share API...');
+        toast.info('Opening share menu...');
         await navigator.share({
           title: 'IPA Scrabble',
           text: `Join my IPA Scrabble game! Invite code: ${myInviteCode}`,
           url: shareLink
         });
         console.log('Web Share API succeeded');
+        toast.success('Shared successfully!');
       } catch (error) {
         console.log('Web Share API failed or cancelled:', error);
-        // User cancelled or error, fallback to copy
+        toast.info('Share cancelled, copying link instead');
         copyInviteLink();
       }
     } else {
       console.log('Web Share API not available, falling back to copy');
+      toast.info('Share menu not available in desktop app, copying link');
       copyInviteLink();
     }
   };
